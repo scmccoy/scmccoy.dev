@@ -1,18 +1,20 @@
 import { Link } from "gatsby"
 import PropTypes from "prop-types"
 import React from "react"
+import myImage from '../images/iporpose.jpg';
 
 const Header = ({ siteTitle }) => (
   <header
     style={{
-      background: `rebeccapurple`,
+      background: `gray`,
       marginBottom: `1.45rem`,
     }}
   >
     <div
       style={{
         margin: `0 auto`,
-        maxWidth: 960,
+        display: 'flex',
+        justifyContent: 'space-between',
         padding: `1.45rem 1.0875rem`,
       }}
     >
@@ -27,6 +29,8 @@ const Header = ({ siteTitle }) => (
           {siteTitle}
         </Link>
       </h1>
+      <img src={myImage} alt="fun" style={{height: '250px', margin: '0'}}/>
+
     </div>
   </header>
 )
