@@ -7,5 +7,4 @@ module.exports = {
     config.plugins.push( new webpack.EnvironmentPlugin(localEnv));
     return config;
   },
-  target: 'serverless'
 }
