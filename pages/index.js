@@ -21,7 +21,7 @@ const Home = () => {
   return (
     <Layout>
       <div className="container">
-        <h1 className="title">Hello Everybody!</h1>
+        <h1 className="title">OH NO!</h1>
         <HabitForm />
         <HabitList />
 
