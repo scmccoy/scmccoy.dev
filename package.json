@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "export": "npm run build && next export"
+    "export": "npm run build && next export",
+    "postbuild": "next-on-netlify"
   },
   "dependencies": {
     "@apollo/react-hooks": "^3.1.5",
@@ -23,6 +24,7 @@
     "isomorphic-unfetch": "^3.0.0",
     "mongoose": "^5.9.18",
     "next": "9.4.2",
+    "next-on-netlify": "^2.3.0",
     "react": "16.13.1",
     "react-dom": "16.13.1"
   }

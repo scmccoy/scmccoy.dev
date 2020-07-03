@@ -10,7 +10,7 @@ export const habitsMutations = {
         });
         return newHabit;
       } catch (error) {
-        console.error("Error! ", error);
+        console.error("addHabit error ", error);
       }
     },
     async addEvent(_, { habitId, date }) {
