@@ -24,8 +24,8 @@ const HabitList = () => {
   if(error) {
     return <h1>Fool! You made an ERROR!</h1>
   }
-  console.log('HABITS: error ', error)
-  console.log('HABITS: data ', data)
+  // console.log('HABITS: error ', error)
+  // console.log('HABITS: data ', data)
   const { habits } = data;
 
   return (

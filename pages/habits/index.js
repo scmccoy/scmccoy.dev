@@ -3,8 +3,8 @@ import { withApollo } from "../../lib/apollo";
 import { useState } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
-import HabitList from "../../components/HabitList";
-import HabitForm from "../../components/HabitForm";
+import HabitList from "../../components/habits/HabitList";
+import HabitForm from "../../components/habits/HabitForm";
 
 const HELLO_QUERY = gql`
   query HelloQuery {
