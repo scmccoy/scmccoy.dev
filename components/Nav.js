@@ -27,7 +27,7 @@ const Nav = () => {
       </ul>
       <style jsx>{`
           nav {
-            padding: 0 0.5rem;
+            padding: 0 0.6rem;
             display: flex;
             justify-content: start;
             align-items: center;
