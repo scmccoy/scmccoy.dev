@@ -1,5 +1,10 @@
 import styled from 'styled-components';
 
+/* TODO
+*   1. Clear entire board
+*   2. Export current board (json?)
+*/
+
 const Header = () => {
     return (
         <Container>

@@ -1,0 +1,28 @@
+# Current MODEL
+
+# _id: 1 // unique id
+# statement:"I wanna eat more " // string
+# category:"positive" // string
+# action: ["do something"] // array of strings
+
+type Card {
+  _id: ID!
+  statement: String!
+  category: String!
+}
+
+# shaping data that comes back from api
+input CardInput {
+  _id: ID
+  statement: String!
+  category: String!
+}
+
+# Adding a new card
+type Mutation {
+  addCard(card: CardInput): Card
+}
+
+type Query {
+  cards: [Card]
+}

@@ -1,5 +1,6 @@
 import Layout from '../components/Layout'
 import styled from 'styled-components';
+import { withApollo } from "../lib/apollo";
 // Components
 import Header from '../components/retro/Header';
 import Column from '../components/retro/Column';
@@ -30,4 +31,4 @@ const ColumnContainer = styled.div`
   
 `;
 
-export default Retro;
+export default withApollo(Retro);

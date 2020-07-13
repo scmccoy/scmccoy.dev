@@ -5,6 +5,10 @@ import { mergeResolvers, mergeTypeDefs } from 'graphql-toolkit';
 import { habitsResolvers } from '../../src/api/habits/resolvers';
 import { habitsMutations } from '../../src/api/habits/mutations';
 import Habits from '../../src/api/habits/Habits.graphql';
+// Retro GraphQL
+import { retroResolvers } from '../../src/api/retro/resolvers';
+import { retroMutations } from '../../src/api/retro/mutations';
+import Cards from '../../src/api/retro/Retro.graphql';
 
 // TYPES
 const fakeTypeDefs = gql`
@@ -12,7 +16,7 @@ const fakeTypeDefs = gql`
     sayHello: String
   }
 `;
-const typeDefs = mergeTypeDefs([fakeTypeDefs, Habits])
+const typeDefs = mergeTypeDefs([Cards])
 
 // RESOLVERS
 const fakeResolvers = {
@@ -23,7 +27,7 @@ const fakeResolvers = {
   },
 };
 // combine all resolvers
-const resolvers = mergeResolvers([habitsResolvers, habitsMutations])
+const resolvers = mergeResolvers([retroResolvers, retroMutations])
 
 // SERVER
 const apolloServer = new ApolloServer({ typeDefs, resolvers });
