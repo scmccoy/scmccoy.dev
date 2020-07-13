@@ -13,9 +13,9 @@ const Retro = () => {
       <Header />
       <Input />
       <ColumnContainer >
-        <Column />
-        <Column />
-        <Column />
+        <Column category="upside" />
+        <Column category="downside" />
+        <Column category="improve" />
       </ColumnContainer>
       <Footer />
     </Container>

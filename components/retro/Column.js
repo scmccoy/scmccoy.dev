@@ -18,9 +18,8 @@ const GET_CARDS = gql`
   }
 `;
 
-const Column = () => {
+const Column = ({category}) => {
   const { data, loading, error } = useQuery(GET_CARDS);
-
   let displayCards = [];
 
   if (loading) {
@@ -31,11 +30,16 @@ const Column = () => {
   }
   if (data) {
     const { cards } = data;
-    displayCards = cards;
+    cards.forEach(element => {
+      if(element.category === category) {
+        displayCards.push(element);
+      }
+    });
   }
+  
   return (
     <Container>
-      <Title>Column</Title>
+      <Title>{category}</Title>
       {displayCards.map((card) => (
         <Card key={card._id} statement={card.statement} />
       ))}

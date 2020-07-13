@@ -2,7 +2,7 @@
 
 # _id: 1 // unique id
 # statement:"I wanna eat more " // string
-# category:"positive" // string
+# category:"upside" // string
 # action: ["do something"] // array of strings
 
 type Card {

@@ -25,7 +25,7 @@ const Input = () => {
     });
 
     const [value, setValue] = useState('');
-    const [radioValue, setRadioValue] = useState('positive');
+    const [radioValue, setRadioValue] = useState('upside');
 
     return (
         <Form
@@ -43,13 +43,13 @@ const Input = () => {
             <label>Input
             <input type="text" placeholder="Add text..." name="statement" value={value} onChange={e => setValue(e.target.value)} /></label>
             <Fieldset id="group1">
-                <label htmlFor="positive">Positive
-                    <InputRadio id="positive" type="radio" value="positive" name="group1" checked={radioValue === "positive"} onChange={e => setRadioValue(e.target.value)} />
+                <label htmlFor="upside">Upside
+                    <InputRadio id="upside" type="radio" value="upside" name="group1" checked={radioValue === "upside"} onChange={e => setRadioValue(e.target.value)} />
                 </label>
-                <label htmlFor="negative">Negative
-                    <InputRadio id="negative" type="radio" value="negative" name="group1" checked={radioValue === "negative"} onChange={e => setRadioValue(e.target.value)} />
+                <label htmlFor="downside">Downside
+                    <InputRadio id="downside" type="radio" value="downside" name="group1" checked={radioValue === "downside"} onChange={e => setRadioValue(e.target.value)} />
                 </label>
-                <label htmlFor="improve">Improvement
+                <label htmlFor="improve">Improve
                     <InputRadio id="improve" type="radio" value="improve" name="group1" checked={radioValue === "improve"} onChange={e => setRadioValue(e.target.value)} />
                 </label>
             </Fieldset>
