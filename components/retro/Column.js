@@ -41,7 +41,7 @@ const Column = ({category}) => {
     <Container>
       <Title>{category}</Title>
       {displayCards.map((card) => (
-        <Card key={card._id} statement={card.statement} />
+        <Card key={card._id} statement={card.statement} cardId={card._id} />
       ))}
     </Container>
   )

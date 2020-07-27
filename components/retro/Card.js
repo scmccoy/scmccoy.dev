@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { useMutation } from "@apollo/react-hooks";
+import gql from "graphql-tag";
 
 /* TODO
 *   1. Allow deletion of card
@@ -7,10 +9,33 @@ import styled from 'styled-components';
 *   4. 
 */
 
-const Card = ({ statement }) => {
+const REMOVE_CARD = gql`
+  mutation removeCard($cardId: ID) {
+    removeCard(cardId: $cardId) {
+      _id
+      statement
+      category
+    }
+  }
+`;
+
+const Card = ({ statement, cardId }) => {
+
+  const [removeCard] = useMutation(REMOVE_CARD, {
+    refetchQueries: ["getCards"],
+  });
+
   return (
     <Container>
       <Content>{statement}</Content>
+      <button onClick={
+        () =>
+        removeCard({
+          variables: {
+            cardId,
+          },
+        })
+      }>Delete</button>
     </Container>
   )
 }

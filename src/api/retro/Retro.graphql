@@ -21,6 +21,7 @@ input CardInput {
 # Adding a new card
 type Mutation {
   addCard(card: CardInput): Card
+  removeCard(cardId: ID): Card
 }
 
 type Query {

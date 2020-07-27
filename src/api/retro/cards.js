@@ -1,5 +1,5 @@
 // Store the database collection
-
+// SCHEMA
 import mongoose, { Schema } from 'mongoose';
 // shape of data in database
 export const CardsSchema = new Schema({
