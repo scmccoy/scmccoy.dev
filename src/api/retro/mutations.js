@@ -15,6 +15,7 @@ export const retroMutations = {
         console.error("addCard error ", error);
       }
     },
+    // REMOVE CARD
     async removeCard(_, { cardId }) {
       console.log("Remove Statement: ", cardId);
       try {
@@ -34,5 +35,32 @@ export const retroMutations = {
         console.error("removeCard error ", error);
       }
     },
+    // ADD action to array
+    // async addAction(_, { cardId, action }) {
+    //   console.log('**** cardId: ', cardId);
+    //   console.log('**** action: ', action);
+    //   try {
+    //     const addedAction = await Cards.findOneAndUpdate(
+    //       {
+    //         _id: cardId,
+    //       },
+    //       {
+    //         $addToSet: {
+    //           actionItems: {
+    //             action
+    //           },
+    //         },
+    //       }
+    //       // {
+    //       //   $push: {
+    //       //       actionItems: action,
+    //       //   },
+    //       // }
+    //     );
+    //     return addedAction;
+    //   } catch (error) {
+    //     console.error("addAction Error", error);
+    //   }
+    // },
   },
 };

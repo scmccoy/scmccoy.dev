@@ -14,6 +14,9 @@ const GET_CARDS = gql`
       _id
       statement
       category
+      # actionItems {
+      #   action
+      # }
     }
   }
 `;
@@ -30,6 +33,7 @@ const Column = ({category}) => {
   }
   if (data) {
     const { cards } = data;
+    // console.log('CARDS: ', cards)
     cards.forEach(element => {
       if(element.category === category) {
         displayCards.push(element);
@@ -42,10 +46,15 @@ const Column = ({category}) => {
       <Title>{category}</Title>
       {displayCards.map((card) => (
         <Card key={card._id} statement={card.statement} cardId={card._id} />
+        // <Card key={card._id} statement={card.statement} cardId={card._id} actions={card.actionItems} />
       ))}
     </Container>
   )
 }
+
+/* *********
+*  STYLES  *
+********* */
 
 const Container = styled.div`
   border: 3px solid yellow;

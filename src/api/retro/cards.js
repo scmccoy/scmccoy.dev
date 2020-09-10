@@ -11,7 +11,7 @@ export const CardsSchema = new Schema({
         type: String,
         required: true
     },
-    // action: {
+    // actionItems: {
     //     type: Array,
     //     required: false
     // }
