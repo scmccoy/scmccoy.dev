@@ -3,12 +3,13 @@
 # _id: 1 // unique id
 # statement:"I wanna eat more " // string
 # category:"upside" // string
-# action: ["do something"] // array of strings
+# action: "do something" // string
 
 type Card {
   _id: ID!
   statement: String!
   category: String!
+  actionItems: [String]
 }
 
 # shaping data that comes back from api
@@ -16,12 +17,15 @@ input CardInput {
   _id: ID
   statement: String!
   category: String!
+  actionItems: [String]
 }
 
 # Adding a new card
 type Mutation {
   addCard(card: CardInput): Card
   removeCard(cardId: ID): Card
+  addAction(cardId: ID, action: String): Card
+  removeAction(cardId: ID, action: String): Card
 }
 
 type Query {

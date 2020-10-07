@@ -14,6 +14,7 @@ const ADD_CARD = gql`
       _id
       statement
       category
+      actionItems
     }
   }
 `;
@@ -30,11 +31,14 @@ const Input = () => {
     return (
         <Form
             onSubmit={(data) => {
+                console.log('DATA: ', data)
+                data.preventDefault(),
                 addCard({
                     variables: {
                         card: {
                             statement: value,
                             category: radioValue,
+                            actionItems: []
                         },
                     },
                 });
@@ -56,6 +60,10 @@ const Input = () => {
         </Form>
     )
 }
+
+/* *********
+*  STYLES  *
+********* */
 
 const Form = styled.form`
   border: 3px solid darkorange;
