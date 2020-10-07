@@ -1,11 +1,11 @@
-// import { useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import { useMutation } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 
 /* TODO
 *   1. DONE! Allow deletion of card
-*   2. Action / Follow-up item added (on click of card - bring in input)
+*   2. Action / Follow-up item added (on click of card - bring in input) IN PROGRESS
 *   3. Allow UP / DOWN arrows (brighten/darken the card...)
 *   4. 
 */
@@ -16,30 +16,40 @@ const REMOVE_CARD = gql`
       _id
       statement
       category
+      actionItems
     }
   }
 `;
-// const ADD_ACTION = gql`
-//   mutation addAction($cardId: ID, $action: String) {
-//     addAction(cardId: $cardId, action: $action) {
-//       _id
-//       action
-//     }
-//   }
-// `;
+const ADD_ACTION = gql`
+  mutation addAction($cardId: ID, $action: String) {
+    addAction(cardId: $cardId, action: $action) {
+      _id
+      actionItems
+    }
+  }
+`;
+const REMOVE_ACTION = gql`
+  mutation removeAction($cardId: ID, $action: String) {
+    removeAction(cardId: $cardId, action: $action) {
+      _id
+      actionItems
+    }
+  }
+`;
 
 const Card = ({ actions, statement, cardId }) => {
-
+  // console.log('CARD: action: ', actions, statement, cardId)
   const [removeCard] = useMutation(REMOVE_CARD, {
     refetchQueries: ["getCards"],
   });
-  // const [addAction] = useMutation(ADD_ACTION, {
-  //   refetchQueries: ['getCards']
-  // });
-  // const [value, setValue] = useState('');
-  // console.log("actions: ", actions)
-  // console.log("value: ", value)
-
+  const [addAction] = useMutation(ADD_ACTION, {
+    refetchQueries: ['getCards']
+  });
+  const [removeAction] = useMutation(REMOVE_ACTION, {
+    refetchQueries: ['getCards']
+  })
+  const [value, setValue] = useState('');
+  
   return (
     <Container>
       <Content>{statement}</Content>
@@ -51,15 +61,13 @@ const Card = ({ actions, statement, cardId }) => {
             },
           })
       }>Delete</button>
-      {/* <form
-        onSubmit={() => {
-          console.log('Hello from Action Item submit')
+      <form
+        onSubmit={(event) => {
+          event.preventDefault()
           addAction({
             variables: {
-              card: {
-                _id: cardId,
+                cardId: cardId,
                 action: value,
-              },
             },
           });
         }}
@@ -67,10 +75,17 @@ const Card = ({ actions, statement, cardId }) => {
         <button>Action Item</button>
         <input type="text" placeholder="Add action..." name="action" value={value} onChange={e => setValue(e.target.value)} />
       </form>
-      <ul>{actions.map((item, index) => {
-        return <ActionItems key={index} >{item}</ActionItems>
-      })}
-      </ul> */}
+      {actions ? <ul>
+        {actions.map(item => {
+          return <li key={item}><button onClick={() => removeAction({
+            variables: {
+              cardId: cardId,
+              action: item
+            }
+          })}>X</button>{item}</li>
+        })}
+      </ul> : null}
+      
     </Container>
   )
 }
@@ -86,10 +101,5 @@ const Container = styled.div`
 const Content = styled.p`
   color: red;
 `;
-// const ActionItems = styled.li`
-//   border: 2px solid purple;
-//   width: 80%;
-//   margin: 1rem;
-// `;
 
 export default Card;

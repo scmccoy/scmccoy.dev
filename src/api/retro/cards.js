@@ -11,10 +11,10 @@ export const CardsSchema = new Schema({
         type: String,
         required: true
     },
-    // actionItems: {
-    //     type: Array,
-    //     required: false
-    // }
+    actionItems: {
+        type: Array,
+        required: false
+    }
 })
 
 export default mongoose.models.cards || mongoose.model('cards', CardsSchema)

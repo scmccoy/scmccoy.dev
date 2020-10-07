@@ -14,9 +14,7 @@ const GET_CARDS = gql`
       _id
       statement
       category
-      # actionItems {
-      #   action
-      # }
+      actionItems
     }
   }
 `;
@@ -45,8 +43,7 @@ const Column = ({category}) => {
     <Container>
       <Title>{category}</Title>
       {displayCards.map((card) => (
-        <Card key={card._id} statement={card.statement} cardId={card._id} />
-        // <Card key={card._id} statement={card.statement} cardId={card._id} actions={card.actionItems} />
+        <Card key={card._id} statement={card.statement} cardId={card._id} actions={card.actionItems} />
       ))}
     </Container>
   )

@@ -14,9 +14,7 @@ const ADD_CARD = gql`
       _id
       statement
       category
-    #   actionItems {
-    #       action
-    #   }
+      actionItems
     }
   }
 `;
@@ -33,12 +31,14 @@ const Input = () => {
     return (
         <Form
             onSubmit={(data) => {
+                console.log('DATA: ', data)
+                data.preventDefault(),
                 addCard({
                     variables: {
                         card: {
                             statement: value,
                             category: radioValue,
-                            // actionItems: []
+                            actionItems: []
                         },
                     },
                 });
