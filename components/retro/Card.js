@@ -53,14 +53,14 @@ const Card = ({ actions, statement, cardId }) => {
   return (
     <Container>
       <Content>{statement}</Content>
-      <button onClick={
+      <ButtonDelete onClick={
         () =>
           removeCard({
             variables: {
               cardId,
             },
           })
-      }>Delete</button>
+      }>Delete</ButtonDelete>
       <form
         onSubmit={(event) => {
           event.preventDefault()
@@ -75,16 +75,16 @@ const Card = ({ actions, statement, cardId }) => {
         <button disabled={value.length === 0}>Action Item</button>
         <input type="text" placeholder="Add action..." name="action" value={value} onChange={e => setValue(e.target.value)} />
       </form>
-      {actions ? <ul>
+      {actions ? <UnorderedListAction>
         {actions.map(item => {
-          return <li key={item}><button onClick={() => removeAction({
+          return <ActionListItem key={item}><ButtonActionItemDelete onClick={() => removeAction({
             variables: {
               cardId: cardId,
               action: item
             }
-          })}>X</button>{item}</li>
+          })}>X</ButtonActionItemDelete>{item}</ActionListItem>
         })}
-      </ul> : null}
+      </UnorderedListAction> : null}
       
     </Container>
   )
@@ -97,9 +97,28 @@ const Card = ({ actions, statement, cardId }) => {
 const Container = styled.div`
   border: 3px solid lightblue;
   min-height: 5rem;
+  position: relative;
 `;
 const Content = styled.p`
   color: red;
+`;
+
+const ButtonDelete = styled.button`
+  position: absolute;
+  top: 0;
+  right: 0;
+`;
+
+const UnorderedListAction = styled.ul`
+  padding-inline-start: 1rem;
+`;
+
+const ActionListItem = styled.li`
+  list-style: none;
+`;
+
+const ButtonActionItemDelete = styled.button`
+  margin-right: 0.5rem;
 `;
 
 export default Card;
