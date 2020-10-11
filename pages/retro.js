@@ -13,9 +13,10 @@ const Retro = () => {
       <Header />
       <Input />
       <ColumnContainer >
-        <Column category="upside" />
+      {/* Set category names here */}
         <Column category="downside" />
-        <Column category="improve" />
+        <Column category="upside" />
+        <Column category="ideas" />
       </ColumnContainer>
       <Footer />
     </Container>
@@ -23,11 +24,12 @@ const Retro = () => {
 }
 
 const Container = styled.div`
-  border: 3px solid red;
+  font-family: 'Roboto Condensed', sans-serif;
+  color: #333;
 `;
 const ColumnContainer = styled.div`
-  border: 3px solid yellowgreen;
   display: flex;
+  position: relative;
   
 `;
 

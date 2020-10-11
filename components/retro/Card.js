@@ -1,14 +1,16 @@
 import { useState } from 'react';
-import styled from 'styled-components';
-import { useMutation } from "@apollo/react-hooks";
-import gql from "graphql-tag";
+import styled, {createGlobalStyle} from 'styled-components';
+import { useMutation } from '@apollo/react-hooks';
+import gql from 'graphql-tag';
+import { Icon } from '@iconify/react';
+import trashAlt from '@iconify/icons-fa-solid/trash-alt';
 
 /* TODO
-*   1. DONE! Allow deletion of card
-*   2. Action / Follow-up item added (on click of card - bring in input) IN PROGRESS
-*   3. Allow UP / DOWN arrows (brighten/darken the card...)
-*   4. 
-*/
+ *   1. DONE! Allow deletion of card
+ *   2. DONE! Action / Follow-up item added (on click of card - bring in input)
+ *   3. Allow UP / DOWN arrows (brighten/darken the card...)
+ *   4.
+ */
 
 const REMOVE_CARD = gql`
   mutation removeCard($cardId: ID) {
@@ -37,76 +39,181 @@ const REMOVE_ACTION = gql`
   }
 `;
 
+
 const Card = ({ actions, statement, cardId }) => {
   // console.log('CARD: action: ', actions, statement, cardId)
   const [removeCard] = useMutation(REMOVE_CARD, {
-    refetchQueries: ["getCards"],
+    refetchQueries: ['getCards'],
   });
   const [addAction] = useMutation(ADD_ACTION, {
-    refetchQueries: ['getCards']
+    refetchQueries: ['getCards'],
   });
   const [removeAction] = useMutation(REMOVE_ACTION, {
-    refetchQueries: ['getCards']
-  })
+    refetchQueries: ['getCards'],
+  });
   const [value, setValue] = useState('');
-  
+
+  const [focused, setFocused] = useState(false);
+
+  const doSomething = () => {
+    const elem = document.getElementById(cardId);
+    console.log('Focused: ', focused)
+    if (focused) {
+      elem.style.position = 'relative';
+      elem.style.zIndex = '0';
+      elem.style.left = '0';
+      elem.style.top = '0';
+      elem.style.transform = 'scale(1)';
+      setFocused(false);
+      return;
+    }
+    elem.style.position = 'absolute';
+    elem.style.zIndex = '999';
+    elem.style.left = '40%';
+    elem.style.top = '20%';
+    elem.style.transform = 'scale(2)';
+    setFocused(true);
+  }
   return (
-    <Container>
+    <div id={cardId}>
+    <Container >
       <Content>{statement}</Content>
-      <ButtonDelete onClick={
-        () =>
+      <ButtonDelete
+        onClick={() =>
           removeCard({
             variables: {
               cardId,
             },
           })
-      }>Delete</ButtonDelete>
+        }
+      >
+        <Icon height="1rem" icon={trashAlt} />
+      </ButtonDelete>
       <form
         onSubmit={(event) => {
-          event.preventDefault()
+          event.preventDefault();
           addAction({
             variables: {
-                cardId: cardId,
-                action: value,
+              cardId: cardId,
+              action: value,
             },
           });
+          // reset action input value to empty
+          setValue('');
         }}
       >
-        <button disabled={value.length === 0}>Action Item</button>
-        <input type="text" placeholder="Add action..." name="action" value={value} onChange={e => setValue(e.target.value)} />
+        <ButtonAddActionItem disabled={value.length === 0}>
+          Action Item
+        </ButtonAddActionItem>
+        <InputAddAction
+          type="text"
+          placeholder="Add action..."
+          name="action"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+        />
       </form>
-      {actions ? <UnorderedListAction>
-        {actions.map(item => {
-          return <ActionListItem key={item}><ButtonActionItemDelete onClick={() => removeAction({
-            variables: {
-              cardId: cardId,
-              action: item
-            }
-          })}>X</ButtonActionItemDelete>{item}</ActionListItem>
-        })}
-      </UnorderedListAction> : null}
-      
-    </Container>
-  )
-}
+      {actions ? (
+        <UnorderedListAction>
+          {actions.map((item) => {
+            return (
+              <ActionListItem key={item}>
+                <ButtonActionItemDelete
+                  onClick={() =>
+                    removeAction({
+                      variables: {
+                        cardId: cardId,
+                        action: item,
+                      },
+                    })
+                  }
+                >
+                  <Icon
+                    id="action-item-trash-can"
+                    height="0.8rem"
+                    icon={trashAlt}
+                  />
+                </ButtonActionItemDelete>
+                {item}
+              </ActionListItem>
+            );
+          })}
+        </UnorderedListAction>
+      ) : null}
+      <button onClick={() => doSomething()}>X</button>
+    </Container></div>
+  );
+};
 
 /* *********
-*  STYLES  *
-********* */
+ *  STYLES  *
+ ********* */
+
+ const CenteringContainer = styled.div`
+    position: absolute;
+    z-index: 9999;
+    left: 50%;
+    top: 20%;
+    transform: scale(2);
+ `;
 
 const Container = styled.div`
-  border: 3px solid lightblue;
+  border: 4px inset #e3ffe2f2;
+  background: #d7e4e4;
   min-height: 5rem;
+  max-width: 30rem;
   position: relative;
+  padding: 0.5rem;
+  margin: 0.3rem 0;
+  & svg {
+    // trashcan
+    color: #ff2a2a85;
+  }
+  & svg:hover {
+    color: #ff2a2a;
+    height: 1.2rem;
+    width: 1.2rem;
+  }
+  & svg#action-item-trash-can:hover {
+    color: #ff2a2a;
+    height: 1rem;
+    width: 1rem;
+  }
 `;
 const Content = styled.p`
-  color: red;
+  font-size: 1.2rem;
+  margin-top: 0.2rem;
 `;
 
 const ButtonDelete = styled.button`
   position: absolute;
-  top: 0;
+  top: 0.4rem;
   right: 0;
+  border: none;
+  background: transparent;
+`;
+
+const ButtonAddActionItem = styled.button`
+  border: none;
+  margin-right: 0.5rem;
+  color: #fff;
+  background: #489e5b;
+  padding: 0.2rem 0.3rem;
+  & :hover {
+    transform: scale(1.06);
+  }
+  & :disabled {
+    background: #004cff57;
+    transform: scale(1);
+  }
+`;
+
+const InputAddAction = styled.input`
+  border: none;
+  & :focus {
+    padding: 0.2rem;
+    outline-color: #33333333;
+  }
 `;
 
 const UnorderedListAction = styled.ul`
@@ -119,6 +226,8 @@ const ActionListItem = styled.li`
 
 const ButtonActionItemDelete = styled.button`
   margin-right: 0.5rem;
+  border: none;
+  background-color: transparent;
 `;
 
 export default Card;

@@ -8,17 +8,15 @@ import styled from 'styled-components';
 const Header = () => {
     return (
         <Container>
-            <Title>Retro</Title>
+            <Title>Team MacGyver Retro-board</Title>
         </Container>
     )
 }
 
 const Container = styled.div`
-  border: 3px solid blue;
   min-height: 4rem;
 `;
-const Title = styled.h2`
-  color: pink;
+const Title = styled.h1`
   display: flex;
   justify-content: center;
   align-items: center;

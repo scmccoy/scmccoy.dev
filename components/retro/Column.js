@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import Card from './Card';
-import { useQuery } from "@apollo/react-hooks";
-import gql from "graphql-tag";
+import { useQuery } from '@apollo/react-hooks';
+import gql from 'graphql-tag';
 
 /* TODO
-*   1. IDEA: Expand a column to 2/3 - other 2 columns minimal view (but readable!)
-*   2. Get Query for cards data
-*/
+ *   1. IDEA: Expand a column to 2/3 - other 2 columns minimal view (but readable!)
+ *   2. DONE: Get Query for cards data 
+ */
 
 const GET_CARDS = gql`
   query getCards {
@@ -19,7 +19,7 @@ const GET_CARDS = gql`
   }
 `;
 
-const Column = ({category}) => {
+const Column = ({ category }) => {
   const { data, loading, error } = useQuery(GET_CARDS);
   let displayCards = [];
 
@@ -27,39 +27,44 @@ const Column = ({category}) => {
     // do some loading stuff
   }
   if (error) {
-    console.error('COLUMNS DATA: ', error)
+    console.error('COLUMNS DATA: ', error);
   }
   if (data) {
     const { cards } = data;
     // console.log('CARDS: ', cards)
-    cards.forEach(element => {
-      if(element.category === category) {
+    cards.forEach((element) => {
+      if (element.category === category) {
         displayCards.push(element);
       }
     });
   }
-  
+
   return (
     <Container>
       <Title>{category}</Title>
       {displayCards.map((card) => (
-        <Card key={card._id} statement={card.statement} cardId={card._id} actions={card.actionItems} />
+        <Card
+          key={card._id}
+          statement={card.statement}
+          cardId={card._id}
+          actions={card.actionItems}
+        />
       ))}
     </Container>
-  )
-}
+  );
+};
 
 /* *********
-*  STYLES  *
-********* */
+ *  STYLES  *
+ ********* */
 
 const Container = styled.div`
-  border: 3px solid yellow;
   min-height: 10rem;
   width: 100%;
+  margin: 0 0.3rem;
 `;
 const Title = styled.h2`
-  color: green;
+  text-transform: uppercase;
 `;
 
 export default Column;

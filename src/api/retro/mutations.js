@@ -1,6 +1,6 @@
 /* ### RETRO ### */
 // POST / PUT
-import Cards from "./cards";
+import Cards from './cards';
 
 export const retroMutations = {
   Mutation: {
@@ -11,26 +11,25 @@ export const retroMutations = {
         });
         return newCard;
       } catch (error) {
-        console.error("addCard error ", error);
+        console.error('addCard error ', error);
       }
     },
     // REMOVE CARD
     async removeCard(_, { cardId }) {
       try {
-
         const deleteCard = await Cards.findOneAndDelete(
           {
-            _id: cardId
+            _id: cardId,
           },
           {
             $unset: {
-                _id: cardId,
+              _id: cardId,
             },
           }
         );
         return deleteCard;
       } catch (error) {
-        console.error("removeCard error ", error);
+        console.error('removeCard error ', error);
       }
     },
     // ADD action to array
@@ -41,14 +40,14 @@ export const retroMutations = {
             _id: cardId,
           },
           {
-          $addToSet: {
+            $addToSet: {
               actionItems: action,
             },
           }
         );
         return addedAction;
       } catch (error) {
-        console.error("addAction Error", error);
+        console.error('addAction Error', error);
       }
     },
     // Remove action from array
@@ -59,14 +58,14 @@ export const retroMutations = {
             _id: cardId,
           },
           {
-          $pull: {
+            $pull: {
               actionItems: action,
             },
           }
         );
         return removedAction;
       } catch (error) {
-        console.error("removeAction Error", error);
+        console.error('removeAction Error', error);
       }
     },
   },

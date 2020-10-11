@@ -1,4 +1,4 @@
-import { ApolloServer, gql } from "apollo-server-micro";
+import { ApolloServer, gql } from 'apollo-server-micro';
 import connectDb from '../../lib/mongoose';
 import { mergeResolvers, mergeTypeDefs } from 'graphql-toolkit';
 // Habits GraphQL
@@ -16,18 +16,18 @@ const fakeTypeDefs = gql`
     sayHello: String
   }
 `;
-const typeDefs = mergeTypeDefs([Cards])
+const typeDefs = mergeTypeDefs([Cards]);
 
 // RESOLVERS
 const fakeResolvers = {
   Query: {
     sayHello: () => {
-      return "Shane";
+      return 'Shane';
     },
   },
 };
 // combine all resolvers
-const resolvers = mergeResolvers([retroResolvers, retroMutations])
+const resolvers = mergeResolvers([retroResolvers, retroMutations]);
 
 // SERVER
 const apolloServer = new ApolloServer({ typeDefs, resolvers });
@@ -39,6 +39,6 @@ export const config = {
   },
 };
 
-const server = apolloServer.createHandler({ path: "/api/graphql" });
+const server = apolloServer.createHandler({ path: '/api/graphql' });
 
 export default connectDb(server);
