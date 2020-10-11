@@ -72,7 +72,7 @@ const Card = ({ actions, statement, cardId }) => {
           });
         }}
       >
-        <button>Action Item</button>
+        <button disabled={value.length === 0}>Action Item</button>
         <input type="text" placeholder="Add action..." name="action" value={value} onChange={e => setValue(e.target.value)} />
       </form>
       {actions ? <ul>
