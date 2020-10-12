@@ -49,6 +49,7 @@ const Column = ({ category }) => {
           statement={card.statement}
           cardId={card._id}
           actions={card.actionItems}
+          category={category}
         />
       ))}
     </Container>

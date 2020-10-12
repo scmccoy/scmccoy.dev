@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import styled, {createGlobalStyle} from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 import { useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import { Icon } from '@iconify/react';
 import trashAlt from '@iconify/icons-fa-solid/trash-alt';
+import eyeIcon from '@iconify/icons-fa-solid/eye';
 
 /* TODO
  *   1. DONE! Allow deletion of card
@@ -39,9 +40,8 @@ const REMOVE_ACTION = gql`
   }
 `;
 
-
-const Card = ({ actions, statement, cardId }) => {
-  // console.log('CARD: action: ', actions, statement, cardId)
+const Card = ({ actions, statement, cardId, category }) => {
+  // console.log('CARD: action: ', category);
   const [removeCard] = useMutation(REMOVE_CARD, {
     refetchQueries: ['getCards'],
   });
@@ -55,9 +55,9 @@ const Card = ({ actions, statement, cardId }) => {
 
   const [focused, setFocused] = useState(false);
 
-  const doSomething = () => {
+  const expandCard = () => {
     const elem = document.getElementById(cardId);
-    console.log('Focused: ', focused)
+    console.log('Focused: ', focused);
     if (focused) {
       elem.style.position = 'relative';
       elem.style.zIndex = '0';
@@ -73,75 +73,78 @@ const Card = ({ actions, statement, cardId }) => {
     elem.style.top = '20%';
     elem.style.transform = 'scale(2)';
     setFocused(true);
-  }
+  };
   return (
     <div id={cardId}>
-    <Container >
-      <Content>{statement}</Content>
-      <ButtonDelete
-        onClick={() =>
-          removeCard({
-            variables: {
-              cardId,
-            },
-          })
-        }
-      >
-        <Icon height="1rem" icon={trashAlt} />
-      </ButtonDelete>
-      <form
-        onSubmit={(event) => {
-          event.preventDefault();
-          addAction({
-            variables: {
-              cardId: cardId,
-              action: value,
-            },
-          });
-          // reset action input value to empty
-          setValue('');
-        }}
-      >
-        <ButtonAddActionItem disabled={value.length === 0}>
-          Action Item
-        </ButtonAddActionItem>
-        <InputAddAction
-          type="text"
-          placeholder="Add action..."
-          name="action"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-        />
-      </form>
-      {actions ? (
-        <UnorderedListAction>
-          {actions.map((item) => {
-            return (
-              <ActionListItem key={item}>
-                <ButtonActionItemDelete
-                  onClick={() =>
-                    removeAction({
-                      variables: {
-                        cardId: cardId,
-                        action: item,
-                      },
-                    })
-                  }
-                >
-                  <Icon
-                    id="action-item-trash-can"
-                    height="0.8rem"
-                    icon={trashAlt}
-                  />
-                </ButtonActionItemDelete>
-                {item}
-              </ActionListItem>
-            );
-          })}
-        </UnorderedListAction>
-      ) : null}
-      <button onClick={() => doSomething()}>X</button>
-    </Container></div>
+      <Container category={category}>
+        <Content>{statement}</Content>
+        <ButtonDelete
+          onClick={() =>
+            removeCard({
+              variables: {
+                cardId,
+              },
+            })
+          }
+        >
+          <Icon height="1rem" icon={trashAlt} />
+        </ButtonDelete>
+        <form
+          onSubmit={(event) => {
+            event.preventDefault();
+            addAction({
+              variables: {
+                cardId: cardId,
+                action: value,
+              },
+            });
+            // reset action input value to empty
+            setValue('');
+          }}
+        >
+          <ButtonAddActionItem disabled={value.length === 0}>
+            Action Item
+          </ButtonAddActionItem>
+          <InputAddAction
+            type="text"
+            placeholder="Add action..."
+            name="action"
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+          />
+        </form>
+        {actions ? (
+          <UnorderedListAction>
+            {actions.map((item) => {
+              return (
+                <ActionListItem key={item}>
+                  <ButtonActionItemDelete
+                    onClick={() =>
+                      removeAction({
+                        variables: {
+                          cardId: cardId,
+                          action: item,
+                        },
+                      })
+                    }
+                  >
+                    <Icon
+                      id="action-item-trash-can"
+                      height="0.8rem"
+                      icon={trashAlt}
+                    />
+                  </ButtonActionItemDelete>
+                  {item}
+                </ActionListItem>
+              );
+            })}
+          </UnorderedListAction>
+        ) : null}
+        <ButtonExpandCard onClick={() => expandCard()}>
+          <Icon icon={eyeIcon} />
+        </ButtonExpandCard>
+      </Container>
+    </div>
   );
 };
 
@@ -149,16 +152,21 @@ const Card = ({ actions, statement, cardId }) => {
  *  STYLES  *
  ********* */
 
- const CenteringContainer = styled.div`
-    position: absolute;
-    z-index: 9999;
-    left: 50%;
-    top: 20%;
-    transform: scale(2);
- `;
+const ButtonExpandCard = styled.button`
+  border: none;
+  background-color: transparent;
+  position: absolute;
+  right: 0;
+  bottom: 0.1rem;
+`;
 
 const Container = styled.div`
-  border: 4px inset #e3ffe2f2;
+  border: ${(props) =>
+    props.category === 'upside'
+      ? '4px inset #e3ffe2f2'
+      : props.category === 'downside'
+      ? '4px inset #ffe2e7f2'
+      : '4px inset #d4d6626b'};
   background: #d7e4e4;
   min-height: 5rem;
   max-width: 30rem;
