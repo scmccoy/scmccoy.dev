@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Card from './Card';
+import CardInput from './CardInput';
 import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 
@@ -41,7 +42,7 @@ const Column = ({ category }) => {
 
   return (
     <Container>
-      <Title>{category}</Title>
+      <CardInput category={category} />
       {displayCards.map((card) => (
         <Card
           key={card._id}

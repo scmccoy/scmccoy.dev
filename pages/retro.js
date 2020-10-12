@@ -5,13 +5,13 @@ import { withApollo } from "../lib/apollo";
 import Header from '../components/retro/Header';
 import Column from '../components/retro/Column';
 import Footer from '../components/retro/Footer';
-import Input from '../components/retro/Input';
+import CardInput from '../components/retro/CardInput';
 
 const Retro = () => {
   return (
     <Container>
       <Header />
-      <Input />
+      {/* <CardInput /> */}
       <ColumnContainer >
       {/* Set category names here */}
         <Column category="downside" />
