@@ -16,6 +16,8 @@ const GET_CARDS = gql`
       statement
       category
       actionItems
+      voteHappyTally
+      voteSadTally
     }
   }
 `;
@@ -50,6 +52,8 @@ const Column = ({ category }) => {
           cardId={card._id}
           actions={card.actionItems}
           category={category}
+          voteHappyTally={card.voteHappyTally}
+          voteSadTally={card.voteSadTally}
         />
       ))}
     </Container>

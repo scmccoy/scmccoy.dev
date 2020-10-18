@@ -6,6 +6,7 @@ import { Icon } from '@iconify/react';
 import trashAlt from '@iconify/icons-fa-solid/trash-alt';
 import eyeIcon from '@iconify/icons-fa-solid/eye';
 import eyeSlash from '@iconify/icons-fa-solid/eye-slash';
+import CardVote from './CardVote';
 
 /* TODO
  *   1. DONE! Allow deletion of card
@@ -41,8 +42,8 @@ const REMOVE_ACTION = gql`
   }
 `;
 
-const Card = ({ actions, statement, cardId, category }) => {
-  // console.log('CARD: action: ', category);
+const Card = ({ actions, statement, cardId, category, voteHappyTally, voteSadTally }) => {
+  // console.log('CARD: voteHappyTally: ', voteHappyTally);
   const [removeCard] = useMutation(REMOVE_CARD, {
     refetchQueries: ['getCards'],
   });
@@ -82,11 +83,17 @@ const Card = ({ actions, statement, cardId, category }) => {
     overlay.style.display = 'block';
     setFocused(true);
   };
+
+  const deleteButtonDisable = {
+    display: 'none'
+  }
+
   return (
     <div id={cardId}>
       <Container category={category}>
         <Content>{statement}</Content>
         <ButtonDelete
+          style={focused ? deleteButtonDisable : null}
           onClick={() =>
             removeCard({
               variables: {
@@ -150,6 +157,7 @@ const Card = ({ actions, statement, cardId, category }) => {
         <ButtonExpandCard onClick={() => expandCard()}>
           <Icon icon={focused ? eyeSlash : eyeIcon} />
         </ButtonExpandCard>
+        <CardVote cardId={cardId} voteHappyTally={voteHappyTally} voteSadTally={voteSadTally} />
       </Container>
     </div>
   );
@@ -181,8 +189,10 @@ const Container = styled.div`
   padding: 0.5rem;
   margin: 0.3rem 0;
   & svg {
-    // trashcan
     color: #ff2a2a85;
+  }
+  & svg:focus, button:focus {
+    outline: none;
   }
   & svg#trashcan-delete:hover {
     height: 1.2rem;
