@@ -5,6 +5,7 @@ import gql from 'graphql-tag';
 import { Icon } from '@iconify/react';
 import trashAlt from '@iconify/icons-fa-solid/trash-alt';
 import eyeIcon from '@iconify/icons-fa-solid/eye';
+import eyeSlash from '@iconify/icons-fa-solid/eye-slash';
 
 /* TODO
  *   1. DONE! Allow deletion of card
@@ -51,27 +52,34 @@ const Card = ({ actions, statement, cardId, category }) => {
   const [removeAction] = useMutation(REMOVE_ACTION, {
     refetchQueries: ['getCards'],
   });
+  // Action item input
   const [value, setValue] = useState('');
-
+  // card focus
   const [focused, setFocused] = useState(false);
 
   const expandCard = () => {
-    const elem = document.getElementById(cardId);
-    console.log('Focused: ', focused);
+    const cardElem = document.getElementById(cardId);
+    const overlay = document.getElementById('overlay');
+
     if (focused) {
-      elem.style.position = 'relative';
-      elem.style.zIndex = '0';
-      elem.style.left = '0';
-      elem.style.top = '0';
-      elem.style.transform = 'scale(1)';
+      cardElem.style.position = 'relative';
+      cardElem.style.zIndex = '0';
+      cardElem.style.left = '0';
+      cardElem.style.top = '0';
+      cardElem.style.transform = 'scale(1)';
+      // overlay
+      overlay.style.display = 'none';
+
       setFocused(false);
       return;
     }
-    elem.style.position = 'absolute';
-    elem.style.zIndex = '999';
-    elem.style.left = '40%';
-    elem.style.top = '20%';
-    elem.style.transform = 'scale(2)';
+    cardElem.style.position = 'absolute';
+    cardElem.style.zIndex = '999';
+    cardElem.style.left = '40%';
+    cardElem.style.top = '20%';
+    cardElem.style.transform = 'scale(2)';
+    // overlay
+    overlay.style.display = 'block';
     setFocused(true);
   };
   return (
@@ -87,7 +95,7 @@ const Card = ({ actions, statement, cardId, category }) => {
             })
           }
         >
-          <Icon height="1rem" icon={trashAlt} />
+          <Icon id="trashcan-delete" height="1rem" icon={trashAlt} />
         </ButtonDelete>
         <form
           onSubmit={(event) => {
@@ -129,7 +137,6 @@ const Card = ({ actions, statement, cardId, category }) => {
                     }
                   >
                     <Icon
-                      id="action-item-trash-can"
                       height="0.8rem"
                       icon={trashAlt}
                     />
@@ -141,14 +148,14 @@ const Card = ({ actions, statement, cardId, category }) => {
           </UnorderedListAction>
         ) : null}
         <ButtonExpandCard onClick={() => expandCard()}>
-          <Icon icon={eyeIcon} />
+          <Icon icon={focused ? eyeSlash : eyeIcon} />
         </ButtonExpandCard>
       </Container>
     </div>
   );
 };
 
-/* *********
+/* **********
  *  STYLES  *
  ********* */
 
@@ -177,15 +184,12 @@ const Container = styled.div`
     // trashcan
     color: #ff2a2a85;
   }
-  & svg:hover {
-    color: #ff2a2a;
+  & svg#trashcan-delete:hover {
     height: 1.2rem;
     width: 1.2rem;
   }
-  & svg#action-item-trash-can:hover {
+  & svg:hover {
     color: #ff2a2a;
-    height: 1rem;
-    width: 1rem;
   }
 `;
 const Content = styled.p`
