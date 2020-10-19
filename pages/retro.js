@@ -4,20 +4,18 @@ import { withApollo } from '../lib/apollo';
 // Components
 import Header from '../components/retro/Header';
 import Column from '../components/retro/Column';
-import Footer from '../components/retro/Footer';
 
 const Retro = () => {
   return (
     <Container>
       <Header />
       <ColumnContainer>
-        <Overlay id='overlay' />
+        <Overlay id="overlay" />
         {/* Set category names here */}
         <Column category="downside" />
         <Column category="upside" />
         <Column category="ideas" />
       </ColumnContainer>
-      <Footer />
     </Container>
   );
 };
@@ -40,6 +38,7 @@ const Container = styled.div`
 const ColumnContainer = styled.div`
   display: flex;
   position: relative;
+  margin-bottom: 3.5rem;
 `;
 
 export default withApollo(Retro);

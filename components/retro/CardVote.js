@@ -46,23 +46,21 @@ const CardVote = ({ cardId, voteHappyTally, voteSadTally }) => {
 
   let voteHappyIcon = slightlySmilingFace;
   let voteSadIcon = slightlyFrowningFace;
-  if(voteHappyTally >= 3 && voteHappyTally <= 5) {
+  if (voteHappyTally >= 3 && voteHappyTally <= 5) {
     voteHappyIcon = smilingFaceWithSmilingEyes;
   }
-  if(voteHappyTally >= 6) {
+  if (voteHappyTally >= 6) {
     voteHappyIcon = smilingFaceWithHeartEyes;
   }
-  if(voteSadTally >= 3 && voteSadTally <= 5) {
+  if (voteSadTally >= 3 && voteSadTally <= 5) {
     voteSadIcon = frowningFaceWithOpenMouth;
   }
-  if(voteSadTally >= 6  && voteSadTally <= 15) {
+  if (voteSadTally >= 6 && voteSadTally <= 15) {
     voteSadIcon = dizzyFace;
   }
-  if(voteSadTally > 15) {
+  if (voteSadTally > 15) {
     voteSadIcon = pileOfPoo;
   }
-
-
 
   return (
     <Container>

@@ -42,7 +42,14 @@ const REMOVE_ACTION = gql`
   }
 `;
 
-const Card = ({ actions, statement, cardId, category, voteHappyTally, voteSadTally }) => {
+const Card = ({
+  actions,
+  statement,
+  cardId,
+  category,
+  voteHappyTally,
+  voteSadTally,
+}) => {
   // console.log('CARD: voteHappyTally: ', voteHappyTally);
   const [removeCard] = useMutation(REMOVE_CARD, {
     refetchQueries: ['getCards'],
@@ -74,7 +81,7 @@ const Card = ({ actions, statement, cardId, category, voteHappyTally, voteSadTal
       setFocused(false);
       return;
     }
-    cardElem.style.position = 'absolute';
+    cardElem.style.position = 'fixed';
     cardElem.style.zIndex = '999';
     cardElem.style.left = '40%';
     cardElem.style.top = '20%';
@@ -85,8 +92,8 @@ const Card = ({ actions, statement, cardId, category, voteHappyTally, voteSadTal
   };
 
   const deleteButtonDisable = {
-    display: 'none'
-  }
+    display: 'none',
+  };
 
   return (
     <div id={cardId}>
@@ -122,7 +129,7 @@ const Card = ({ actions, statement, cardId, category, voteHappyTally, voteSadTal
           </ButtonAddActionItem>
           <InputAddAction
             type="text"
-            placeholder="Add action..."
+            placeholder="..."
             name="action"
             value={value}
             onChange={(e) => setValue(e.target.value)}
@@ -143,10 +150,7 @@ const Card = ({ actions, statement, cardId, category, voteHappyTally, voteSadTal
                       })
                     }
                   >
-                    <Icon
-                      height="0.8rem"
-                      icon={trashAlt}
-                    />
+                    <Icon height="0.8rem" icon={trashAlt} />
                   </ButtonActionItemDelete>
                   {item}
                 </ActionListItem>
@@ -157,7 +161,11 @@ const Card = ({ actions, statement, cardId, category, voteHappyTally, voteSadTal
         <ButtonExpandCard onClick={() => expandCard()}>
           <Icon icon={focused ? eyeSlash : eyeIcon} />
         </ButtonExpandCard>
-        <CardVote cardId={cardId} voteHappyTally={voteHappyTally} voteSadTally={voteSadTally} />
+        <CardVote
+          cardId={cardId}
+          voteHappyTally={voteHappyTally}
+          voteSadTally={voteSadTally}
+        />
       </Container>
     </div>
   );
@@ -178,20 +186,22 @@ const ButtonExpandCard = styled.button`
 const Container = styled.div`
   border: ${(props) =>
     props.category === 'upside'
-      ? '4px inset #e3ffe2f2'
+      ? '4px solid #80bf7ef2'
       : props.category === 'downside'
-      ? '4px inset #ffe2e7f2'
-      : '4px inset #d4d6626b'};
+      ? '4px solid #ffb0bdf2'
+      : '4px solid #0000006b'};
   background: #d7e4e4;
+  border-radius: 1.5rem;
   min-height: 5rem;
   max-width: 30rem;
   position: relative;
   padding: 0.5rem;
-  margin: 0.3rem 0;
+  margin: 1rem 0;
   & svg {
     color: #ff2a2a85;
   }
-  & svg:focus, button:focus {
+  & svg:focus,
+  button:focus {
     outline: none;
   }
   & svg#trashcan-delete:hover {
@@ -217,6 +227,7 @@ const ButtonDelete = styled.button`
 
 const ButtonAddActionItem = styled.button`
   border: none;
+  border-radius: 0.4rem;
   margin-right: 0.5rem;
   color: #fff;
   background: #489e5b;
@@ -231,7 +242,11 @@ const ButtonAddActionItem = styled.button`
 `;
 
 const InputAddAction = styled.input`
-  border: none;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  background: #eeeeee85;
+  width: 6rem;
   & :focus {
     padding: 0.2rem;
     outline-color: #33333333;

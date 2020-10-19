@@ -30,7 +30,6 @@ const CardInput = ({ category }) => {
   return (
     <Form
       onSubmit={(data) => {
-        console.log('DATA: ', data);
         data.preventDefault(),
           addCard({
             variables: {
@@ -39,7 +38,7 @@ const CardInput = ({ category }) => {
                 category: category,
                 actionItems: [],
                 voteHappyTally: 0,
-                voteSadTally: 0
+                voteSadTally: 0,
               },
             },
           });
