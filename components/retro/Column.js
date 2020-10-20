@@ -36,7 +36,7 @@ const Column = ({ category }) => {
   }
   if (data) {
     const { cards } = data;
-    // console.log('CARDS: ', cards);
+    console.log('CARDS: ', cards);
     cards.forEach((element) => {
       if (element.category === category) {
         displayCards.push(element);
