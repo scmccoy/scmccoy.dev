@@ -20,6 +20,7 @@ const GET_CARDS = gql`
   }
 `;
 
+
 const Column = ({ category }) => {
   const { data, loading, error } = useQuery(GET_CARDS);
   let displayCards = [];
