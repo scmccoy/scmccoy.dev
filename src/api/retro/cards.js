@@ -15,14 +15,14 @@ export const CardSchema = new Schema({
     type: Array,
     required: false,
   },
-  voteHappyTally: {
-    type: Number,
-    required: false,
-  },
-  voteSadTally: {
-    type: Number,
-    required: false,
-  }
+  // voteHappyTally: {
+  //   type: Number,
+  //   required: false,
+  // },
+  // voteSadTally: {
+  //   type: Number,
+  //   required: false,
+  // }
 });
 
 export default mongoose.models.cards || mongoose.model('cards', CardSchema);

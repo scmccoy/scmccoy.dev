@@ -17,8 +17,8 @@ const GET_CARDS = gql`
       statement
       category
       actionItems
-      voteHappyTally
-      voteSadTally
+      # voteHappyTally
+      # voteSadTally
     }
   }
 `;
@@ -55,15 +55,15 @@ const Column = ({ category }) => {
           cardId={card._id}
           actions={card.actionItems}
           category={category}
-          voteHappyTally={card.voteHappyTally}
-          voteSadTally={card.voteSadTally}
+          // voteHappyTally={card.voteHappyTally}
+          // voteSadTally={card.voteSadTally}
         />
       ))}
-      {/* <Footer
+      <Footer
         id={category}
         cardTotal={displayCards.length}
         actionTotal={actionTotal}
-      /> */}
+      />
     </Container>
   );
 };

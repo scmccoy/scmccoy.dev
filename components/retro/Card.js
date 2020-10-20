@@ -163,11 +163,11 @@ const Card = ({
         <ButtonExpandCard onClick={() => expandCard()}>
           <Icon icon={focused ? eyeSlash : eyeIcon} />
         </ButtonExpandCard>
-        <CardVote
+        {/* <CardVote
           cardId={cardId}
           voteHappyTally={voteHappyTally}
           voteSadTally={voteSadTally}
-        />
+        /> */}
       </Container>
     </div>
   );

@@ -15,8 +15,8 @@ const ADD_CARD = gql`
       statement
       category
       actionItems
-      voteHappyTally
-      voteSadTally
+      # voteHappyTally
+      # voteSadTally
     }
   }
 `;
@@ -37,8 +37,8 @@ const CardInput = ({ category }) => {
                 statement: value,
                 category: category,
                 actionItems: [],
-                voteHappyTally: 0,
-                voteSadTally: 0,
+                // voteHappyTally: 0,
+                // voteSadTally: 0,
               },
             },
           });
