@@ -17,8 +17,8 @@ const GET_CARDS = gql`
       statement
       category
       actionItems
-      voteHappyTally
-      voteSadTally
+      # voteHappyTally
+      # voteSadTally
     }
   }
 `;
@@ -26,7 +26,7 @@ const GET_CARDS = gql`
 const Column = ({ category }) => {
   const { data, loading, error } = useQuery(GET_CARDS);
   let displayCards = [];
-  let actionTotal = 0;
+  // let actionTotal = 0;
 
   if (loading) {
     // do some loading stuff
@@ -40,7 +40,7 @@ const Column = ({ category }) => {
     cards.forEach((element) => {
       if (element.category === category) {
         displayCards.push(element);
-        actionTotal = actionTotal + element.actionItems.length;
+        // actionTotal = actionTotal + element.actionItems.length;
       }
     });
   }
@@ -55,11 +55,11 @@ const Column = ({ category }) => {
           cardId={card._id}
           actions={card.actionItems}
           category={category}
-          voteHappyTally={card.voteHappyTally}
-          voteSadTally={card.voteSadTally}
+          // voteHappyTally={card.voteHappyTally}
+          // voteSadTally={card.voteSadTally}
         />
       ))}
-      <Footer id={category} cardTotal={displayCards.length} actionTotal={actionTotal} />
+      {/* <Footer id={category} cardTotal={displayCards.length} actionTotal={actionTotal} /> */}
     </Container>
   );
 };

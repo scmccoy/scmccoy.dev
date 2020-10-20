@@ -47,8 +47,8 @@ const Card = ({
   statement,
   cardId,
   category,
-  voteHappyTally,
-  voteSadTally,
+  // voteHappyTally,
+  // voteSadTally,
 }) => {
   // console.log('CARD: voteHappyTally: ', voteHappyTally);
   const [removeCard] = useMutation(REMOVE_CARD, {
@@ -161,11 +161,11 @@ const Card = ({
         <ButtonExpandCard onClick={() => expandCard()}>
           <Icon icon={focused ? eyeSlash : eyeIcon} />
         </ButtonExpandCard>
-        <CardVote
+        {/* <CardVote
           cardId={cardId}
           voteHappyTally={voteHappyTally}
           voteSadTally={voteSadTally}
-        />
+        /> */}
       </Container>
     </div>
   );

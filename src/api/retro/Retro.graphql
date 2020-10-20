@@ -10,8 +10,8 @@ type Card {
   statement: String!
   category: String!
   actionItems: [String]
-  voteHappyTally: Int
-  voteSadTally: Int
+  # voteHappyTally: Int
+  # voteSadTally: Int
 }
 
 # shaping data that comes back from api
@@ -20,8 +20,8 @@ input CardInput {
   statement: String!
   category: String!
   actionItems: [String]
-  voteHappyTally: Int
-  voteSadTally: Int
+  # voteHappyTally: Int
+  # voteSadTally: Int
 }
 
 # Adding a new card
@@ -30,8 +30,8 @@ type Mutation {
   removeCard(cardId: ID): Card
   addAction(cardId: ID, action: String): Card
   removeAction(cardId: ID, action: String): Card
-  voteHappy(cardId: ID, voteHappyTally: Int): Card
-  voteSad(cardId: ID, voteSadTally: Int): Card
+  # voteHappy(cardId: ID, voteHappyTally: Int): Card
+  # voteSad(cardId: ID, voteSadTally: Int): Card
 }
 
 type Query {
