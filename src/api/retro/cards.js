@@ -2,7 +2,7 @@
 // SCHEMA
 import mongoose, { Schema } from 'mongoose';
 // shape of data in database
-export const CardsSchema = new Schema({
+export const CardSchema = new Schema({
   statement: {
     type: String,
     required: true,
@@ -25,4 +25,4 @@ export const CardsSchema = new Schema({
   }
 });
 
-export default mongoose.models.cards || mongoose.model('cards', CardsSchema);
+export default mongoose.models.cards || mongoose.model('cards', CardSchema);

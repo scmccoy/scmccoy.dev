@@ -22,6 +22,8 @@ const REMOVE_CARD = gql`
       statement
       category
       actionItems
+      voteHappyTally
+      voteSadTally
     }
   }
 `;

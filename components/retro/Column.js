@@ -59,7 +59,11 @@ const Column = ({ category }) => {
           voteSadTally={card.voteSadTally}
         />
       ))}
-      <Footer id={category} cardTotal={displayCards.length} actionTotal={actionTotal} />
+      {/* <Footer
+        id={category}
+        cardTotal={displayCards.length}
+        actionTotal={actionTotal}
+      /> */}
     </Container>
   );
 };
