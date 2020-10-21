@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import styled, { createGlobalStyle } from 'styled-components';
+import styled from 'styled-components';
 import { useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import { Icon } from '@iconify/react';
 import trashAlt from '@iconify/icons-fa-solid/trash-alt';
 import eyeIcon from '@iconify/icons-fa-solid/eye';
 import eyeSlash from '@iconify/icons-fa-solid/eye-slash';
-import CardVote from './CardVote';
+// import CardVote from './CardVote';
 
 /* TODO
  *   1. DONE! Allow deletion of card
@@ -22,8 +22,8 @@ const REMOVE_CARD = gql`
       statement
       category
       actionItems
-      voteHappyTally
-      voteSadTally
+      # voteHappyTally
+      # voteSadTally
     }
   }
 `;
@@ -49,8 +49,8 @@ const Card = ({
   statement,
   cardId,
   category,
-  voteHappyTally,
-  voteSadTally,
+  // voteHappyTally,
+  // voteSadTally,
 }) => {
   // console.log('CARD: voteHappyTally: ', voteHappyTally);
   const [removeCard] = useMutation(REMOVE_CARD, {
@@ -163,11 +163,11 @@ const Card = ({
         <ButtonExpandCard onClick={() => expandCard()}>
           <Icon icon={focused ? eyeSlash : eyeIcon} />
         </ButtonExpandCard>
-        <CardVote
+        {/* <CardVote
           cardId={cardId}
           voteHappyTally={voteHappyTally}
           voteSadTally={voteSadTally}
-        />
+        /> */}
       </Container>
     </div>
   );
