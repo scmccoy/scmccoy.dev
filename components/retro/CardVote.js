@@ -2,14 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 import { useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
-// import { Icon } from '@iconify/react';
-// import slightlyFrowningFace from '@iconify/icons-emojione/slightly-frowning-face';
-// import frowningFaceWithOpenMouth from '@iconify/icons-emojione/frowning-face-with-open-mouth';
-// import dizzyFace from '@iconify/icons-emojione/dizzy-face';
-// import pileOfPoo from '@iconify/icons-twemoji/pile-of-poo';
-// import slightlySmilingFace from '@iconify/icons-emojione/slightly-smiling-face';
-// import smilingFaceWithSmilingEyes from '@iconify/icons-emojione/smiling-face-with-smiling-eyes';
-// import smilingFaceWithHeartEyes from '@iconify/icons-emojione/smiling-face-with-heart-eyes';
+import { Icon } from '@iconify/react';
+import slightlyFrowningFace from '@iconify/icons-emojione/slightly-frowning-face';
+import frowningFaceWithOpenMouth from '@iconify/icons-emojione/frowning-face-with-open-mouth';
+import dizzyFace from '@iconify/icons-emojione/dizzy-face';
+import pileOfPoo from '@iconify/icons-twemoji/pile-of-poo';
+import slightlySmilingFace from '@iconify/icons-emojione/slightly-smiling-face';
+import smilingFaceWithSmilingEyes from '@iconify/icons-emojione/smiling-face-with-smiling-eyes';
+import smilingFaceWithHeartEyes from '@iconify/icons-emojione/smiling-face-with-heart-eyes';
 
 /**
  * Add upvote/downvote for cards
@@ -44,23 +44,23 @@ const CardVote = ({ cardId, voteHappyTally, voteSadTally }) => {
     refetchQueries: ['getCards'],
   });
 
-  // let voteHappyIcon = slightlySmilingFace;
-  // let voteSadIcon = slightlyFrowningFace;
-  // if (voteHappyTally >= 3 && voteHappyTally <= 5) {
-  //   voteHappyIcon = smilingFaceWithSmilingEyes;
-  // }
-  // if (voteHappyTally >= 6) {
-  //   voteHappyIcon = smilingFaceWithHeartEyes;
-  // }
-  // if (voteSadTally >= 3 && voteSadTally <= 5) {
-  //   voteSadIcon = frowningFaceWithOpenMouth;
-  // }
-  // if (voteSadTally >= 6 && voteSadTally <= 15) {
-  //   voteSadIcon = dizzyFace;
-  // }
-  // if (voteSadTally > 15) {
-  //   voteSadIcon = pileOfPoo;
-  // }
+  let voteHappyIcon = slightlySmilingFace;
+  let voteSadIcon = slightlyFrowningFace;
+  if (voteHappyTally >= 3 && voteHappyTally <= 5) {
+    voteHappyIcon = smilingFaceWithSmilingEyes;
+  }
+  if (voteHappyTally >= 6) {
+    voteHappyIcon = smilingFaceWithHeartEyes;
+  }
+  if (voteSadTally >= 3 && voteSadTally <= 5) {
+    voteSadIcon = frowningFaceWithOpenMouth;
+  }
+  if (voteSadTally >= 6 && voteSadTally <= 15) {
+    voteSadIcon = dizzyFace;
+  }
+  if (voteSadTally > 15) {
+    voteSadIcon = pileOfPoo;
+  }
 
   return (
     <Container>
@@ -75,7 +75,7 @@ const CardVote = ({ cardId, voteHappyTally, voteSadTally }) => {
             })
           }
         >
-          {/* <Icon height="1.3rem" icon={voteHappyIcon} /> */}
+          <Icon height="1.3rem" icon={voteHappyIcon} />
         </ButtonVote>
         <div>{voteHappyTally}</div>
       </VoteBox>
@@ -90,7 +90,7 @@ const CardVote = ({ cardId, voteHappyTally, voteSadTally }) => {
             })
           }
         >
-          {/* <Icon height="1.3rem" icon={voteSadIcon} /> */}
+          <Icon height="1.3rem" icon={voteSadIcon} />
         </ButtonVote>
         <div>{voteSadTally}</div>
       </VoteBox>
@@ -114,8 +114,8 @@ const VoteBox = styled.div`
   align-items: center;
 `;
 const ButtonVote = styled.button`
-  /* border: none;
-  background: transparent; */
+  border: none;
+  background: transparent;
 `;
 
 export default CardVote;

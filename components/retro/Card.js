@@ -6,7 +6,7 @@ import { Icon } from '@iconify/react';
 import trashAlt from '@iconify/icons-fa-solid/trash-alt';
 import eyeIcon from '@iconify/icons-fa-solid/eye';
 import eyeSlash from '@iconify/icons-fa-solid/eye-slash';
-// import CardVote from './CardVote';
+import CardVote from './CardVote';
 
 /* TODO
  *   1. DONE! Allow deletion of card
@@ -46,14 +46,14 @@ const REMOVE_ACTION = gql`
 
 
 
-const ADD_VOTE_HAPPY = gql`
-  mutation voteHappy($cardId: ID, $voteTally: String) {
-    voteHappy(cardId: $cardId, voteTally: $voteTally) {
-      _id
-      voteTally
-    }
-  }
-`;
+// const ADD_VOTE_HAPPY = gql`
+//   mutation voteHappy($cardId: ID, $voteTally: String) {
+//     voteHappy(cardId: $cardId, voteTally: $voteTally) {
+//       _id
+//       voteTally
+//     }
+//   }
+// `;
 
 
 
@@ -63,9 +63,9 @@ const Card = ({
   statement,
   cardId,
   category,
-  // voteHappyTally,
-  // voteSadTally,
-  voteTally
+  voteHappyTally,
+  voteSadTally,
+  // voteTally
 }) => {
   // console.log('CARD: voteHappyTally: ', voteHappyTally);
   const [removeCard] = useMutation(REMOVE_CARD, {
@@ -79,9 +79,9 @@ const Card = ({
   });
 
 
-  const [voteHappy] = useMutation(ADD_VOTE_HAPPY, {
-    refetchQueries: ['getCards'],
-  });
+  // const [voteHappy] = useMutation(ADD_VOTE_HAPPY, {
+  //   refetchQueries: ['getCards'],
+  // });
 
 
 
@@ -186,19 +186,19 @@ const Card = ({
         <ButtonExpandCard onClick={() => expandCard()}>
           <Icon icon={focused ? eyeSlash : eyeIcon} />
         </ButtonExpandCard>
-        {/* <CardVote
+        <CardVote
           cardId={cardId}
           voteHappyTally={voteHappyTally}
           voteSadTally={voteSadTally}
-        /> */}
-        <button onClick={() =>
+        />
+        {/* <button onClick={() =>
             voteHappy({
               variables: {
                 cardId: cardId,
                 voteTally: voteTally,
               },
             })
-          } >{voteTally}</button>
+          } >{voteTally}</button> */}
         
       </Container>
     </div>

@@ -69,45 +69,14 @@ export const retroMutations = {
       }
     },
     // Vote Happy Tally
-    // async voteHappy(_, { cardId, voteHappyTally }) {
-    //   try {
-    //     const votedHappy = await Cards.findOneAndUpdate(
-    //       {
-    //         _id: cardId,
-    //       },
-    //       {
-    //         voteHappyTally: voteHappyTally + 1
-    //       }
-    //     );
-    //     return votedHappy;
-    //   } catch (error) {
-    //     console.error('votedHappy Error', error);
-    //   }
-    // },
-    // // Vote Happy Tally
-    // async voteSad(_, { cardId, voteSadTally }) {
-    //   try {
-    //     const votedSad = await Cards.findOneAndUpdate(
-    //       {
-    //         _id: cardId,
-    //       },
-    //       {
-    //         voteSadTally: voteSadTally + 1
-    //       }
-    //     );
-    //     return votedSad;
-    //   } catch (error) {
-    //     console.error('votedSad Error', error);
-    //   }
-    // },
-    async voteHappy(_, { cardId, voteTally }) {
+    async voteHappy(_, { cardId, voteHappyTally }) {
       try {
         const votedHappy = await Cards.findOneAndUpdate(
           {
             _id: cardId,
           },
           {
-            voteTally: voteTally + 1
+            voteHappyTally: voteHappyTally + 1
           }
         );
         return votedHappy;
@@ -115,5 +84,36 @@ export const retroMutations = {
         console.error('votedHappy Error', error);
       }
     },
+    // Vote Happy Tally
+    async voteSad(_, { cardId, voteSadTally }) {
+      try {
+        const votedSad = await Cards.findOneAndUpdate(
+          {
+            _id: cardId,
+          },
+          {
+            voteSadTally: voteSadTally + 1
+          }
+        );
+        return votedSad;
+      } catch (error) {
+        console.error('votedSad Error', error);
+      }
+    },
+    // async voteHappy(_, { cardId, voteTally }) {
+    //   try {
+    //     const votedHappy = await Cards.findOneAndUpdate(
+    //       {
+    //         _id: cardId,
+    //       },
+    //       {
+    //         voteTally: voteTally + 1
+    //       }
+    //     );
+    //     return votedHappy;
+    //   } catch (error) {
+    //     console.error('votedHappy Error', error);
+    //   }
+    // },
   },
 };
