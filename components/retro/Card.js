@@ -44,6 +44,20 @@ const REMOVE_ACTION = gql`
   }
 `;
 
+
+
+const ADD_VOTE_HAPPY = gql`
+  mutation voteHappy($cardId: ID, $voteTally: String) {
+    voteHappy(cardId: $cardId, voteTally: $voteTally) {
+      _id
+      voteTally
+    }
+  }
+`;
+
+
+
+
 const Card = ({
   actions,
   statement,
@@ -51,6 +65,7 @@ const Card = ({
   category,
   // voteHappyTally,
   // voteSadTally,
+  voteTally
 }) => {
   // console.log('CARD: voteHappyTally: ', voteHappyTally);
   const [removeCard] = useMutation(REMOVE_CARD, {
@@ -62,6 +77,14 @@ const Card = ({
   const [removeAction] = useMutation(REMOVE_ACTION, {
     refetchQueries: ['getCards'],
   });
+
+
+  const [voteHappy] = useMutation(ADD_VOTE_HAPPY, {
+    refetchQueries: ['getCards'],
+  });
+
+
+
   // Action item input
   const [value, setValue] = useState('');
   // card focus
@@ -168,6 +191,15 @@ const Card = ({
           voteHappyTally={voteHappyTally}
           voteSadTally={voteSadTally}
         /> */}
+        <button onClick={() =>
+            voteHappy({
+              variables: {
+                cardId: cardId,
+                voteTally: voteTally,
+              },
+            })
+          } >{voteTally}</button>
+        
       </Container>
     </div>
   );

@@ -10,6 +10,7 @@ type Card {
   statement: String!
   category: String!
   actionItems: [String]
+  voteTally: String
   # voteHappyTally: Int
   # voteSadTally: Int
 }
@@ -22,6 +23,7 @@ input CardInput {
   actionItems: [String]
   # voteHappyTally: Int
   # voteSadTally: Int
+  voteTally: String
 }
 
 # Adding a new card
@@ -30,6 +32,7 @@ type Mutation {
   removeCard(cardId: ID): Card
   addAction(cardId: ID, action: String): Card
   removeAction(cardId: ID, action: String): Card
+  voteHappy(cardId: ID, voteTally: String): Card
   # voteHappy(cardId: ID, voteHappyTally: Int): Card
   # voteSad(cardId: ID, voteSadTally: Int): Card
 }

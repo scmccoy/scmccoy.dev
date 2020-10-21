@@ -100,5 +100,20 @@ export const retroMutations = {
     //     console.error('votedSad Error', error);
     //   }
     // },
+    async voteHappy(_, { cardId, voteTally }) {
+      try {
+        const votedHappy = await Cards.findOneAndUpdate(
+          {
+            _id: cardId,
+          },
+          {
+            voteTally: voteTally + 1
+          }
+        );
+        return votedHappy;
+      } catch (error) {
+        console.error('votedHappy Error', error);
+      }
+    },
   },
 };
