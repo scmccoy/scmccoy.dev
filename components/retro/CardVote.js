@@ -16,50 +16,49 @@ import smilingFaceWithHeartEyes from '@iconify/icons-emojione/smiling-face-with-
  * No limits
  */
 
-// Add Happy
-
-const ADD_VOTE_HAPPY = gql`
-  mutation voteHappy($cardId: ID, $voteHappyTally: Int) {
-    voteHappy(cardId: $cardId, voteHappyTally: $voteHappyTally) {
+// Add Up vote
+const ADD_VOTE_UP = gql`
+  mutation voteUp($cardId: ID, $voteTallyUp: Int) {
+    voteUp(cardId: $cardId, voteTallyUp: $voteTallyUp) {
       _id
-      voteHappyTally
+      voteTallyUp
     }
   }
 `;
-// Add Sad
-const ADD_VOTE_SAD = gql`
-  mutation voteSad($cardId: ID, $voteSadTally: Int) {
-    voteSad(cardId: $cardId, voteSadTally: $voteSadTally) {
+// Add down vote
+const ADD_VOTE_DOWN = gql`
+  mutation voteDown($cardId: ID, $voteTallyDown: Int) {
+    voteDown(cardId: $cardId, voteTallyDown: $voteTallyDown) {
       _id
-      voteSadTally
+      voteTallyDown
     }
   }
 `;
 
-const CardVote = ({ cardId, voteHappyTally, voteSadTally }) => {
-  const [voteHappy] = useMutation(ADD_VOTE_HAPPY, {
+const CardVote = ({ cardId, voteTallyUp, voteTallyDown }) => {
+  const [voteUp] = useMutation(ADD_VOTE_UP, {
     refetchQueries: ['getCards'],
   });
-  const [voteSad] = useMutation(ADD_VOTE_SAD, {
+  const [voteDown] = useMutation(ADD_VOTE_DOWN, {
     refetchQueries: ['getCards'],
   });
 
-  let voteHappyIcon = slightlySmilingFace;
-  let voteSadIcon = slightlyFrowningFace;
-  if (voteHappyTally >= 3 && voteHappyTally <= 5) {
-    voteHappyIcon = smilingFaceWithSmilingEyes;
+  let voteUpIcon = slightlySmilingFace;
+  let voteDownIcon = slightlyFrowningFace;
+  if (voteTallyUp >= 3 && voteTallyUp <= 5) {
+    voteUpIcon = smilingFaceWithSmilingEyes;
   }
-  if (voteHappyTally >= 6) {
-    voteHappyIcon = smilingFaceWithHeartEyes;
+  if (voteTallyUp >= 6) {
+    voteUpIcon = smilingFaceWithHeartEyes;
   }
-  if (voteSadTally >= 3 && voteSadTally <= 5) {
-    voteSadIcon = frowningFaceWithOpenMouth;
+  if (voteTallyDown >= 3 && voteTallyDown <= 5) {
+    voteDownIcon = frowningFaceWithOpenMouth;
   }
-  if (voteSadTally >= 6 && voteSadTally <= 15) {
-    voteSadIcon = dizzyFace;
+  if (voteTallyDown >= 6 && voteTallyDown <= 15) {
+    voteDownIcon = dizzyFace;
   }
-  if (voteSadTally > 15) {
-    voteSadIcon = pileOfPoo;
+  if (voteTallyDown > 15) {
+    voteDownIcon = pileOfPoo;
   }
 
   return (
@@ -67,32 +66,32 @@ const CardVote = ({ cardId, voteHappyTally, voteSadTally }) => {
       <VoteBox>
         <ButtonVote
           onClick={() =>
-            voteHappy({
+            voteUp({
               variables: {
                 cardId: cardId,
-                voteHappyTally: voteHappyTally,
+                voteTallyUp: voteTallyUp,
               },
             })
           }
         >
-          <Icon height="1.3rem" icon={voteHappyIcon} />
+          <Icon height="1.3rem" icon={voteUpIcon} />
         </ButtonVote>
-        <div>{voteHappyTally}</div>
+        <div>{voteTallyUp}</div>
       </VoteBox>
       <VoteBox>
         <ButtonVote
           onClick={() =>
-            voteSad({
+            voteDown({
               variables: {
                 cardId: cardId,
-                voteSadTally: voteSadTally,
+                voteTallyDown: voteTallyDown,
               },
             })
           }
         >
-          <Icon height="1.3rem" icon={voteSadIcon} />
+          <Icon height="1.3rem" icon={voteDownIcon} />
         </ButtonVote>
-        <div>{voteSadTally}</div>
+        <div>{voteTallyDown}</div>
       </VoteBox>
     </Container>
   );
@@ -104,8 +103,8 @@ const CardVote = ({ cardId, voteHappyTally, voteSadTally }) => {
 
 const Container = styled.div`
   display: flex;
-  width: 10rem;
-  justify-content: space-between;
+  width: 40%;
+  justify-content: flex-end;
 `;
 
 const VoteBox = styled.div`

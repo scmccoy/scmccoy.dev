@@ -15,15 +15,11 @@ export const CardSchema = new Schema({
     type: Array,
     required: false,
   },
-  // voteTally: {
-  //   type: String,
-  //   required: false,
-  // }
-  voteHappyTally: {
+  voteTallyUp: {
     type: Number,
     required: false,
   },
-  voteSadTally: {
+  voteTallyDown: {
     type: Number,
     required: false,
   }

@@ -22,8 +22,6 @@ const REMOVE_CARD = gql`
       statement
       category
       actionItems
-      # voteHappyTally
-      # voteSadTally
     }
   }
 `;
@@ -44,30 +42,16 @@ const REMOVE_ACTION = gql`
   }
 `;
 
-
-
-// const ADD_VOTE_HAPPY = gql`
-//   mutation voteHappy($cardId: ID, $voteTally: String) {
-//     voteHappy(cardId: $cardId, voteTally: $voteTally) {
-//       _id
-//       voteTally
-//     }
-//   }
-// `;
-
-
-
-
 const Card = ({
   actions,
   statement,
   cardId,
   category,
-  voteHappyTally,
-  voteSadTally,
-  // voteTally
+  voteTallyUp,
+  voteTallyDown,
+
 }) => {
-  // console.log('CARD: voteHappyTally: ', voteHappyTally);
+  // console.log('CARD: voteTallyUp: ', voteTallyUp);
   const [removeCard] = useMutation(REMOVE_CARD, {
     refetchQueries: ['getCards'],
   });
@@ -77,13 +61,6 @@ const Card = ({
   const [removeAction] = useMutation(REMOVE_ACTION, {
     refetchQueries: ['getCards'],
   });
-
-
-  // const [voteHappy] = useMutation(ADD_VOTE_HAPPY, {
-  //   refetchQueries: ['getCards'],
-  // });
-
-
 
   // Action item input
   const [value, setValue] = useState('');
@@ -136,7 +113,12 @@ const Card = ({
         >
           <Icon id="trashcan-delete" height="1rem" icon={trashAlt} />
         </ButtonDelete>
-        <form
+        <ButtonExpandCard onClick={() => expandCard()}>
+          <Icon icon={focused ? eyeSlash : eyeIcon} />
+        </ButtonExpandCard>
+        <hr />
+        <ActionContainer>
+        <ActionForm
           onSubmit={(event) => {
             event.preventDefault();
             addAction({
@@ -149,6 +131,7 @@ const Card = ({
             setValue('');
           }}
         >
+          
           <ButtonAddActionItem disabled={value.length === 0}>
             Action Item
           </ButtonAddActionItem>
@@ -159,7 +142,12 @@ const Card = ({
             value={value}
             onChange={(e) => setValue(e.target.value)}
           />
-        </form>
+        </ActionForm>
+        <CardVote
+          cardId={cardId}
+          voteTallyUp={voteTallyUp}
+          voteTallyDown={voteTallyDown}
+        /></ActionContainer>
         {actions ? (
           <UnorderedListAction>
             {actions.map((item) => {
@@ -183,23 +171,6 @@ const Card = ({
             })}
           </UnorderedListAction>
         ) : null}
-        <ButtonExpandCard onClick={() => expandCard()}>
-          <Icon icon={focused ? eyeSlash : eyeIcon} />
-        </ButtonExpandCard>
-        <CardVote
-          cardId={cardId}
-          voteHappyTally={voteHappyTally}
-          voteSadTally={voteSadTally}
-        />
-        {/* <button onClick={() =>
-            voteHappy({
-              variables: {
-                cardId: cardId,
-                voteTally: voteTally,
-              },
-            })
-          } >{voteTally}</button> */}
-        
       </Container>
     </div>
   );
@@ -209,12 +180,21 @@ const Card = ({
  *  STYLES  *
  ********* */
 
+ const ActionContainer = styled.div`
+  display: flex;
+  width: 100%;
+ `;
+ const ActionForm = styled.form`
+  display: flex;
+  width: 60%;
+ `;
+
 const ButtonExpandCard = styled.button`
   border: none;
   background-color: transparent;
   position: absolute;
-  right: 0;
-  bottom: 0.1rem;
+  bottom: 5px;
+  right: 5px;
 `;
 
 const Container = styled.div`
@@ -249,6 +229,7 @@ const Container = styled.div`
 const Content = styled.p`
   font-size: 1.2rem;
   margin-top: 0.2rem;
+  margin-right: 1rem;
 `;
 
 const ButtonDelete = styled.button`
@@ -289,6 +270,7 @@ const InputAddAction = styled.input`
 
 const UnorderedListAction = styled.ul`
   padding-inline-start: 1rem;
+  margin-bottom: 0;
 `;
 
 const ActionListItem = styled.li`

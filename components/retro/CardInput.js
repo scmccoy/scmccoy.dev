@@ -15,9 +15,8 @@ const ADD_CARD = gql`
       statement
       category
       actionItems
-      voteHappyTally
-      voteSadTally
-      # voteTally
+      voteTallyUp
+      voteTallyDown
     }
   }
 `;
@@ -38,9 +37,8 @@ const CardInput = ({ category }) => {
                 statement: value,
                 category: category,
                 actionItems: [],
-                // voteTally: '0'
-                voteHappyTally: 0,
-                voteSadTally: 0,
+                voteTallyUp: 0,
+                voteTallyDown: 0,
               },
             },
           });
@@ -51,7 +49,7 @@ const CardInput = ({ category }) => {
       <Label htmlFor={category}>{category}</Label>
       <Input
         type="text"
-        placeholder="Add text..."
+        placeholder="..."
         name={category}
         value={value}
         onChange={(e) => setValue(e.target.value)}

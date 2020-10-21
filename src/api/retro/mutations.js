@@ -68,52 +68,37 @@ export const retroMutations = {
         console.error('removeAction Error', error);
       }
     },
-    // Vote Happy Tally
-    async voteHappy(_, { cardId, voteHappyTally }) {
+    // Vote Up Tally
+    async voteUp(_, { cardId, voteTallyUp }) {
       try {
-        const votedHappy = await Cards.findOneAndUpdate(
+        const votedUp = await Cards.findOneAndUpdate(
           {
             _id: cardId,
           },
           {
-            voteHappyTally: voteHappyTally + 1
+            voteTallyUp: voteTallyUp + 1
           }
         );
-        return votedHappy;
+        return votedUp;
       } catch (error) {
-        console.error('votedHappy Error', error);
+        console.error('votedUp Error', error);
       }
     },
-    // Vote Happy Tally
-    async voteSad(_, { cardId, voteSadTally }) {
+    // Vote Down Tally
+    async voteDown(_, { cardId, voteTallyDown }) {
       try {
-        const votedSad = await Cards.findOneAndUpdate(
+        const votedDown = await Cards.findOneAndUpdate(
           {
             _id: cardId,
           },
           {
-            voteSadTally: voteSadTally + 1
+            voteTallyDown: voteTallyDown + 1
           }
         );
-        return votedSad;
+        return votedDown;
       } catch (error) {
-        console.error('votedSad Error', error);
+        console.error('votedDown Error', error);
       }
     },
-    // async voteHappy(_, { cardId, voteTally }) {
-    //   try {
-    //     const votedHappy = await Cards.findOneAndUpdate(
-    //       {
-    //         _id: cardId,
-    //       },
-    //       {
-    //         voteTally: voteTally + 1
-    //       }
-    //     );
-    //     return votedHappy;
-    //   } catch (error) {
-    //     console.error('votedHappy Error', error);
-    //   }
-    // },
   },
 };
