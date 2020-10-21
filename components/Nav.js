@@ -4,26 +4,11 @@ const Nav = () => {
   return (
     <nav>
       <ul>
-        {/* <li>
-          <Link href="/">
-            <a>Home</a>
-          </Link>
-        </li> */}
         <li>
           <Link href="/retro">
             <a>Retro</a>
           </Link>
         </li>
-        {/* <li>
-          <Link href="/event/slug">
-            <a>Event</a>
-          </Link>
-        </li>
-        <li>
-          <Link href="/habits">
-            <a>Habits</a>
-          </Link>
-        </li> */}
       </ul>
       <style jsx>{`
         nav {
