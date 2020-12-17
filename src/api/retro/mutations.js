@@ -1,5 +1,6 @@
 /* ### RETRO ### */
 // POST / PUT
+import { forEachField } from 'apollo-server-micro';
 import Cards from './cards';
 
 export const retroMutations = {
@@ -32,6 +33,17 @@ export const retroMutations = {
         console.error('removeCard error ', error);
       }
     },
+    // REMOVE CARDS
+    // async removeCards(_, {}) {
+    //   try {
+    //     const deleteCards = await Cards.deleteMany({
+    //       category: /upside/,
+    //     });
+    //     return deleteCards;
+    //   } catch (error) {
+    //     console.error('removeCards error ', error);
+    //   }
+    // },
     // ADD action to array
     async addAction(_, { cardId, action }) {
       try {
@@ -76,7 +88,7 @@ export const retroMutations = {
             _id: cardId,
           },
           {
-            voteTallyUp: voteTallyUp + 1
+            voteTallyUp: voteTallyUp + 1,
           }
         );
         return votedUp;
@@ -92,7 +104,7 @@ export const retroMutations = {
             _id: cardId,
           },
           {
-            voteTallyDown: voteTallyDown + 1
+            voteTallyDown: voteTallyDown + 1,
           }
         );
         return votedDown;

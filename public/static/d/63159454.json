@@ -1,1 +1,11 @@
-{"data":{"site":{"siteMetadata":{"title":"shanemccoy.dev","description":"Sandbox for fun...","author":"shanemccoypdx@gmail.com"}}}}
+{
+  "data": {
+    "site": {
+      "siteMetadata": {
+        "title": "shanemccoy.dev",
+        "description": "Sandbox for fun...",
+        "author": "shanemccoypdx@gmail.com"
+      }
+    }
+  }
+}

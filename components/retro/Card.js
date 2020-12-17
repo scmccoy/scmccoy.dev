@@ -42,15 +42,7 @@ const REMOVE_ACTION = gql`
   }
 `;
 
-const Card = ({
-  actions,
-  statement,
-  cardId,
-  category,
-  voteTallyUp,
-  voteTallyDown,
-
-}) => {
+const Card = ({ actions, statement, cardId, category, voteTallyUp, voteTallyDown }) => {
   // console.log('CARD: voteTallyUp: ', voteTallyUp);
   const [removeCard] = useMutation(REMOVE_CARD, {
     refetchQueries: ['getCards'],
@@ -118,36 +110,30 @@ const Card = ({
         </ButtonExpandCard>
         <hr />
         <ActionContainer>
-        <ActionForm
-          onSubmit={(event) => {
-            event.preventDefault();
-            addAction({
-              variables: {
-                cardId: cardId,
-                action: value,
-              },
-            });
-            // reset action input value to empty
-            setValue('');
-          }}
-        >
-          
-          <ButtonAddActionItem disabled={value.length === 0}>
-            Action Item
-          </ButtonAddActionItem>
-          <InputAddAction
-            type="text"
-            placeholder="..."
-            name="action"
-            value={value}
-            onChange={(e) => setValue(e.target.value)}
-          />
-        </ActionForm>
-        <CardVote
-          cardId={cardId}
-          voteTallyUp={voteTallyUp}
-          voteTallyDown={voteTallyDown}
-        /></ActionContainer>
+          <ActionForm
+            onSubmit={(event) => {
+              event.preventDefault();
+              addAction({
+                variables: {
+                  cardId: cardId,
+                  action: value,
+                },
+              });
+              // reset action input value to empty
+              setValue('');
+            }}
+          >
+            <ButtonAddActionItem disabled={value.length === 0}>Action Item</ButtonAddActionItem>
+            <InputAddAction
+              type="text"
+              placeholder="..."
+              name="action"
+              value={value}
+              onChange={(e) => setValue(e.target.value)}
+            />
+          </ActionForm>
+          <CardVote cardId={cardId} voteTallyUp={voteTallyUp} voteTallyDown={voteTallyDown} />
+        </ActionContainer>
         {actions ? (
           <UnorderedListAction>
             {actions.map((item) => {
@@ -180,14 +166,14 @@ const Card = ({
  *  STYLES  *
  ********* */
 
- const ActionContainer = styled.div`
+const ActionContainer = styled.div`
   display: flex;
   width: 100%;
- `;
- const ActionForm = styled.form`
+`;
+const ActionForm = styled.form`
   display: flex;
   width: 60%;
- `;
+`;
 
 const ButtonExpandCard = styled.button`
   border: none;

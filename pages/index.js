@@ -1,9 +1,9 @@
-import Layout from "../components/Layout";
+import Layout from '../components/Layout';
 
 const Home = () => {
   return (
     <Layout>
-        <h1 className="title">OH NO!</h1>
+      <h1 className="title">OH NO!</h1>
     </Layout>
   );
 };

@@ -1,17 +1,17 @@
 import styled from 'styled-components';
 
 /* TODO
-*   1. Clear entire board
-*   2. Export current board (json?)
-*/
+ *   1. Clear entire board
+ *   2. Export current board (json?)
+ */
 
 const Header = () => {
-    return (
-        <Container>
-            <Title>Team MacGyver Retro-board</Title>
-        </Container>
-    )
-}
+  return (
+    <Container>
+      <Title>Team MacGyver Retro-board</Title>
+    </Container>
+  );
+};
 
 const Container = styled.div`
   min-height: 4rem;

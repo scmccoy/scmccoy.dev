@@ -5,7 +5,7 @@
 //   cards {
 //     statement
 //     category
-//     actionItems 
+//     actionItems
 //   }
 // }
 
@@ -14,7 +14,7 @@
 //   addCard(card: {
 //     statement: "hello"
 //     category: "upside"
-//   }) { 
+//   }) {
 //     category
 //     statement
 //     actionItems
@@ -23,7 +23,7 @@
 
 // REMOVE CARD
 // mutation {
-//   removeCard(cardId: "5f7a4baf5bd36e0a235de36a") { 
+//   removeCard(cardId: "5f7a4baf5bd36e0a235de36a") {
 //     _id
 //     statement
 //     category
@@ -39,24 +39,3 @@
 //     actionItems
 //   }
 // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

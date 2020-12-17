@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import Card from './Card';
 import CardInput from './CardInput';
-import Footer from './Footer';
 import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 
@@ -25,6 +24,7 @@ const GET_CARDS = gql`
 
 const Column = ({ category }) => {
   const { data, loading, error } = useQuery(GET_CARDS);
+  console.log('DATA: ', data)
   let displayCards = [];
   let actionTotal = 0;
 
@@ -36,7 +36,7 @@ const Column = ({ category }) => {
   }
   if (data) {
     const { cards } = data;
-    console.log('CARDS: ', cards);
+    // console.log('CARDS: ', cards);
     cards.forEach((element) => {
       if (element.category === category) {
         displayCards.push(element);
@@ -59,11 +59,6 @@ const Column = ({ category }) => {
           voteTallyDown={card.voteTallyDown}
         />
       ))}
-      <Footer
-        id={category}
-        cardTotal={displayCards.length}
-        actionTotal={actionTotal}
-      />
     </Container>
   );
 };

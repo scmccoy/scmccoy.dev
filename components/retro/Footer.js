@@ -1,51 +1,81 @@
 import styled from 'styled-components';
+import { useQuery } from '@apollo/react-hooks';
+import gql from 'graphql-tag';
 
-const Footer = ({ id, cardTotal, actionTotal }) => {
+/* TODO
+ *   1. Export Card text and action items - functioning - needs error reporting cleanup etc
+ *   2. Delete all cards in DB
+ */
+
+const GET_CARDS = gql`
+  query getCards {
+    cards {
+      statement
+      category
+      actionItems
+    }
+  }
+`;
+const Footer = () => {
+  const { data, loading, error } = useQuery(GET_CARDS);
+  if (loading) {
+    // do some loading stuff
+  }
+  if (error) {
+    console.error('Footer query', error);
+  }
+
+  const handleExport = (event) => {
+    event.preventDefault();
+    const exportableData = [];
+    data.cards.forEach((element) => {
+      exportableData.push({
+        category: element.category,
+        statement: element.statement,
+        action_items: element.actionItems,
+      });
+    });
+
+    const getDate = new Date().toLocaleDateString();
+    const name = `retro-export-${getDate.replace(/\//g, '-')}.json`;
+    const dataToDownload = JSON.stringify(exportableData);
+    const element = document.createElement('a');
+    element.href = URL.createObjectURL(new Blob([dataToDownload], { type: `application/json` }));
+    element.download = name;
+    element.click();
+  };
+
   return (
-    <Container id={id}>
-      <Content>
-        {cardTotal} card{cardTotal > 1 || cardTotal === 0 ? 's' : ''} and{' '}
-        {actionTotal} action item
-        {actionTotal > 1 || actionTotal === 0 ? 's' : ''}
-      </Content>
+    <Container>
+      <PositioningContainer>
+        {/* <CslearButton>Clear All Cards</CslearButton> */}
+        <ExportButton onClick={handleExport}>Export All Cards</ExportButton>
+      </PositioningContainer>
     </Container>
   );
 };
 
 const Container = styled.div`
-  background-color: white;
-  min-height: 2rem;
-  position: fixed;
-  bottom: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background-color: #ccc;
   border-top: 2px solid #333;
-  &#downside {
-    height: 2rem;
-    left: 0;
-    width: 33%;
-  }
-  &#upside {
-    height: 3rem;
-    left: 33%;
-    width: 33%;
-    border-left: 2px solid #333;
-    border-top-left-radius: 0.5rem;
-  }
-  &#ideas {
-    height: 4rem;
-    left: 66%;
-    border-left: 2px solid #333;
-    border-top-left-radius: 0.5rem;
-    right: 0;
-  }
+  bottom: 0;
+  height: 4rem;
+  position: fixed;
+  right: 0;
+  width: 100%;
 `;
-const Content = styled.h2`
-  color: #333;
-  display: flex;
-  justify-content: center;
+
+const PositioningContainer = styled.div`
   align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: start;
+  padding: 0 2rem;
 `;
+const ExportButton = styled.button`
+  background: #fff;
+  padding: 0.5rem;
+`;
+const ClearButton = styled.button``;
 
 export default Footer;

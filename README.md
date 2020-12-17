@@ -28,14 +28,17 @@ You can check out [the Next.js GitHub repository](https://github.com/zeit/next.j
 ### Routes
 
 Use the Pages directory for your routes
+
 ```
 -| pages
 
 --| about
 ```
-This would be ```/about``` in your browser.
+
+This would be `/about` in your browser.
 
 Dynamic routes can also be used w/ useRouter hook and wrapping brackets around page name
+
 ```
 -| pages
 
@@ -46,8 +49,8 @@ Dynamic routes can also be used w/ useRouter hook and wrapping brackets around p
 
 ### API Routes
 
-Create API folder under ```pages```
-url => ```../api/my-api-file.js```
+Create API folder under `pages`
+url => `../api/my-api-file.js`
 
 ### ENV variables
 

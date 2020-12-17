@@ -1,6 +1,6 @@
 /* ### RETRO ### */
 // GET
-import Cards from "./cards";
+import Cards from './cards';
 
 export const retroResolvers = {
   Query: {
@@ -9,9 +9,8 @@ export const retroResolvers = {
         const cards = await Cards.find();
         // console.log("Get Statements: ", cards);
         return cards;
-
       } catch (error) {
-        console.error("Error in resolver: ", error)
+        console.error('Error in resolver: ', error);
       }
       // return [{
       //     _id: 23,

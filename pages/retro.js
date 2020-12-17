@@ -3,6 +3,7 @@ import { withApollo } from '../lib/apollo';
 // Components
 import Header from '../components/retro/Header';
 import Column from '../components/retro/Column';
+import Footer from '../components/retro/Footer';
 
 const Retro = () => {
   return (
@@ -15,6 +16,7 @@ const Retro = () => {
         <Column category="upside" />
         <Column category="ideas" />
       </ColumnContainer>
+      <Footer />
     </Container>
   );
 };

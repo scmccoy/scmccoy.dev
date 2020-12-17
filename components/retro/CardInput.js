@@ -47,13 +47,7 @@ const CardInput = ({ category }) => {
       }}
     >
       <Label htmlFor={category}>{category}</Label>
-      <Input
-        type="text"
-        placeholder="..."
-        name={category}
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-      />
+      <Input type="text" placeholder="..." name={category} value={value} onChange={(e) => setValue(e.target.value)} />
     </Form>
   );
 };

@@ -24,10 +24,11 @@ input CardInput {
   voteTallyDown: Int
 }
 
-# Adding a new card
+# Mutations
 type Mutation {
   addCard(card: CardInput): Card
   removeCard(cardId: ID): Card
+  # removeCards(): Card
   addAction(cardId: ID, action: String): Card
   removeAction(cardId: ID, action: String): Card
   voteUp(cardId: ID, voteTallyUp: Int): Card

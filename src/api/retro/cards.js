@@ -22,7 +22,7 @@ export const CardSchema = new Schema({
   voteTallyDown: {
     type: Number,
     required: false,
-  }
+  },
 });
 
 export default mongoose.models.cards || mongoose.model('cards', CardSchema);

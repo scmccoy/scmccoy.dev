@@ -1,1 +1,76 @@
-{"componentChunkName":"component---src-pages-retro-index-js","path":"/retro/","result":{"data":{"allMongodbRetroRetrospective":{"edges":[{"node":{"statement":"I wanna have more free time ","category":"positive","id":"378aae90-b087-50f2-9287-b4c910ab7be5"}},{"node":{"statement":"I wanna write more code ","category":"positive","id":"54cfa271-ac8e-584c-a2f1-d367d899456e"}},{"node":{"statement":"I wanna have more input ","category":"negative","id":"3df4153d-56fe-525e-9fb7-8511eff31744"}},{"node":{"statement":"I wanna write better code ","category":"negative","id":"3ba576e8-1d59-56c5-a1fa-955373615fde"}},{"node":{"statement":"I wanna not be in 2020 ","category":"negative","id":"fade8fc7-f098-59af-9236-71617dbb7142"}},{"node":{"statement":"I wanna architect ","category":"improvement","id":"e384e755-12c2-52cf-b5d1-f28483cb15b6"}},{"node":{"statement":"I wanna eat more ","category":"positive","id":"b47b3b73-bee9-5bf7-b7ab-72be782b50a9"}},{"node":{"statement":"I wanna be healthy ","category":"positive","id":"587972b4-0e3b-5009-82a3-44a18c7926d2"}},{"node":{"statement":"I wanna build retro ","category":"improvement","id":"ac0d9f5f-b9e3-513d-9460-6776a199c011"}}]}},"pageContext":{}}}
+{
+  "componentChunkName": "component---src-pages-retro-index-js",
+  "path": "/retro/",
+  "result": {
+    "data": {
+      "allMongodbRetroRetrospective": {
+        "edges": [
+          {
+            "node": {
+              "statement": "I wanna have more free time ",
+              "category": "positive",
+              "id": "378aae90-b087-50f2-9287-b4c910ab7be5"
+            }
+          },
+          {
+            "node": {
+              "statement": "I wanna write more code ",
+              "category": "positive",
+              "id": "54cfa271-ac8e-584c-a2f1-d367d899456e"
+            }
+          },
+          {
+            "node": {
+              "statement": "I wanna have more input ",
+              "category": "negative",
+              "id": "3df4153d-56fe-525e-9fb7-8511eff31744"
+            }
+          },
+          {
+            "node": {
+              "statement": "I wanna write better code ",
+              "category": "negative",
+              "id": "3ba576e8-1d59-56c5-a1fa-955373615fde"
+            }
+          },
+          {
+            "node": {
+              "statement": "I wanna not be in 2020 ",
+              "category": "negative",
+              "id": "fade8fc7-f098-59af-9236-71617dbb7142"
+            }
+          },
+          {
+            "node": {
+              "statement": "I wanna architect ",
+              "category": "improvement",
+              "id": "e384e755-12c2-52cf-b5d1-f28483cb15b6"
+            }
+          },
+          {
+            "node": {
+              "statement": "I wanna eat more ",
+              "category": "positive",
+              "id": "b47b3b73-bee9-5bf7-b7ab-72be782b50a9"
+            }
+          },
+          {
+            "node": {
+              "statement": "I wanna be healthy ",
+              "category": "positive",
+              "id": "587972b4-0e3b-5009-82a3-44a18c7926d2"
+            }
+          },
+          {
+            "node": {
+              "statement": "I wanna build retro ",
+              "category": "improvement",
+              "id": "ac0d9f5f-b9e3-513d-9460-6776a199c011"
+            }
+          }
+        ]
+      }
+    },
+    "pageContext": {}
+  }
+}
