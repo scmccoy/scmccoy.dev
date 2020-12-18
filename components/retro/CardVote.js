@@ -103,8 +103,8 @@ const CardVote = ({ cardId, voteTallyUp, voteTallyDown }) => {
 
 const Container = styled.div`
   display: flex;
-  width: 40%;
-  justify-content: flex-end;
+  align-items: flex-end;
+  flex-direction: column;margin-top: 2rem;
 `;
 
 const VoteBox = styled.div`

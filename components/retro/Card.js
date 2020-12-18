@@ -4,8 +4,7 @@ import { useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import { Icon } from '@iconify/react';
 import trashAlt from '@iconify/icons-fa-solid/trash-alt';
-import eyeIcon from '@iconify/icons-fa-solid/eye';
-import eyeSlash from '@iconify/icons-fa-solid/eye-slash';
+import expandIcon from '@iconify/icons-fa-solid/expand-alt';
 import CardVote from './CardVote';
 
 /* TODO
@@ -92,71 +91,76 @@ const Card = ({ actions, statement, cardId, category, voteTallyUp, voteTallyDown
   return (
     <div id={cardId}>
       <Container category={category}>
-        <Content>{statement}</Content>
-        <ButtonDelete
-          style={focused ? deleteButtonDisable : null}
-          onClick={() =>
-            removeCard({
-              variables: {
-                cardId,
-              },
-            })
-          }
-        >
-          <Icon id="trashcan-delete" height="1rem" icon={trashAlt} />
-        </ButtonDelete>
-        <ButtonExpandCard onClick={() => expandCard()}>
-          <Icon icon={focused ? eyeSlash : eyeIcon} />
-        </ButtonExpandCard>
-        <hr />
-        <ActionContainer>
-          <ActionForm
-            onSubmit={(event) => {
-              event.preventDefault();
-              addAction({
+        <MainContent>
+          <Statement>{statement}</Statement>
+          <hr />
+
+          <ActionContainer>
+            <ActionForm
+              onSubmit={(event) => {
+                event.preventDefault();
+                addAction({
+                  variables: {
+                    cardId: cardId,
+                    action: value,
+                  },
+                });
+                // reset action input value to empty
+                setValue('');
+              }}
+            >
+              <ButtonAddActionItem disabled={value.length === 0}>Action Item</ButtonAddActionItem>
+              <InputAddAction
+                type="text"
+                placeholder="..."
+                name="action"
+                value={value}
+                onChange={(e) => setValue(e.target.value)}
+              />
+            </ActionForm>
+          </ActionContainer>
+          {actions ? (
+            <UnorderedListAction>
+              {actions.map((item) => {
+                return (
+                  <ActionListItem key={item}>
+                    <ButtonActionItemDelete
+                      onClick={() =>
+                        removeAction({
+                          variables: {
+                            cardId: cardId,
+                            action: item,
+                          },
+                        })
+                      }
+                    >
+                      <Icon height="0.8rem" icon={trashAlt} />
+                    </ButtonActionItemDelete>
+                    {item}
+                  </ActionListItem>
+                );
+              })}
+            </UnorderedListAction>
+          ) : null}
+        </MainContent>
+        <SideContent>
+          <ButtonDelete
+            style={focused ? deleteButtonDisable : null}
+            onClick={() =>
+              removeCard({
                 variables: {
-                  cardId: cardId,
-                  action: value,
+                  cardId,
                 },
-              });
-              // reset action input value to empty
-              setValue('');
-            }}
+              })
+            }
           >
-            <ButtonAddActionItem disabled={value.length === 0}>Action Item</ButtonAddActionItem>
-            <InputAddAction
-              type="text"
-              placeholder="..."
-              name="action"
-              value={value}
-              onChange={(e) => setValue(e.target.value)}
-            />
-          </ActionForm>
+            <Icon id="trashcan-delete" height="1rem" icon={trashAlt} />
+          </ButtonDelete>
+          <ButtonExpandCard onClick={() => expandCard()}>
+            <Icon id="expand-icon" icon={expandIcon} />
+          </ButtonExpandCard>
           <CardVote cardId={cardId} voteTallyUp={voteTallyUp} voteTallyDown={voteTallyDown} />
-        </ActionContainer>
-        {actions ? (
-          <UnorderedListAction>
-            {actions.map((item) => {
-              return (
-                <ActionListItem key={item}>
-                  <ButtonActionItemDelete
-                    onClick={() =>
-                      removeAction({
-                        variables: {
-                          cardId: cardId,
-                          action: item,
-                        },
-                      })
-                    }
-                  >
-                    <Icon height="0.8rem" icon={trashAlt} />
-                  </ButtonActionItemDelete>
-                  {item}
-                </ActionListItem>
-              );
-            })}
-          </UnorderedListAction>
-        ) : null}
+        </SideContent>
       </Container>
     </div>
   );
@@ -166,13 +170,21 @@ const Card = ({ actions, statement, cardId, category, voteTallyUp, voteTallyDown
  *  STYLES  *
  ********* */
 
+const MainContent = styled.div`
+  width: 88%;
+`;
+const SideContent = styled.div`
+  width: 12%;
+  position: relative;
+  border-left: 1px solid #33333315;
+`;
 const ActionContainer = styled.div`
   display: flex;
   width: 100%;
 `;
 const ActionForm = styled.form`
   display: flex;
-  width: 60%;
+  width: 100%;
 `;
 
 const ButtonExpandCard = styled.button`
@@ -181,22 +193,22 @@ const ButtonExpandCard = styled.button`
   position: absolute;
   bottom: 5px;
   right: 5px;
+  visibility: hidden;
 `;
 
 const Container = styled.div`
-  border: ${(props) =>
-    props.category === 'upside'
-      ? '4px solid #80bf7ef2'
-      : props.category === 'downside'
-      ? '4px solid #ffb0bdf2'
-      : '4px solid #0000006b'};
+  border-color: ${(props) =>
+    props.category === 'upside' ? '#80bf7ef2' : props.category === 'downside' ? '#ffb0bdf2' : '#0000006b'};
+  border-width: 4px 0 0 4px;
+  border-style: solid;
   background: #d7e4e4;
   border-radius: 1.5rem;
-  min-height: 5rem;
+  min-height: 7rem;
   max-width: 30rem;
   position: relative;
   padding: 0.5rem;
   margin: 1rem 0;
+  display: flex;
   & svg {
     color: #ff2a2a85;
   }
@@ -204,26 +216,26 @@ const Container = styled.div`
   button:focus {
     outline: none;
   }
-  & svg#trashcan-delete:hover {
-    height: 1.2rem;
-    width: 1.2rem;
+  :hover svg#trashcan-delete, :hover svg#expand-icon {
+    visibility: visible;
   }
   & svg:hover {
     color: #ff2a2a;
   }
 `;
-const Content = styled.p`
+const Statement = styled.p`
   font-size: 1.2rem;
   margin-top: 0.2rem;
-  margin-right: 1rem;
 `;
 
 const ButtonDelete = styled.button`
   position: absolute;
-  top: 0.4rem;
+  top: 0.2rem;
   right: 0;
-  border: none;
-  background: transparent;
+  width: 85%;
+  & svg {
+    visibility: hidden;
+  }
 `;
 
 const ButtonAddActionItem = styled.button`
@@ -247,7 +259,7 @@ const InputAddAction = styled.input`
   border-right: none;
   border-left: none;
   background: #eeeeee85;
-  width: 6rem;
+  width: 74%;
   & :focus {
     padding: 0.2rem;
     outline-color: #33333333;
